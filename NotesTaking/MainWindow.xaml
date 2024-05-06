@@ -11,7 +11,8 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown" 
         AllowsTransparency="True"
         Background="Transparent"    
-        Height="680" Width="1000">
+        Height="680" Width="1000"
+        ResizeMode="NoResize">
 
     <Border CornerRadius="12" Background="#28282b" >
         <Grid x:Name="LogInForm">
@@ -32,6 +33,33 @@
             </Rectangle>
             <Ellipse x:Name="btnClose" Grid.Column="2" Margin="0,0,10,0" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>
             <Ellipse x:Name="btnMinimize" Grid.Column="2" Margin="0,0,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
+            <Image Margin="4,22,4,193" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.RowSpan="2"/>
+            <Label Grid.Column="1" Margin="176,362,176,180" Grid.Row="1">
+                <AccessText FontSize="28" FontWeight="Bold" Foreground="WhiteSmoke" Height="46">
+                    Log in:
+                </AccessText>
+            </Label>
+            <Button x:Name="btnSignIn" 
+        Background="Transparent"
+        Grid.Column="1" 
+        Margin="70,415,70,103" 
+        Grid.Row="1" 
+        FontSize="30" 
+        FontWeight="Bold"
+        BorderThickness="5"
+        BorderBrush="#008E70"
+        Padding="9">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="32"/>
+                    </Style>
+                </Button.Resources>
+                <DockPanel HorizontalAlignment="Stretch">
+                    <Label Foreground="#008E70" Content="Google" DockPanel.Dock="Right" FontFamily="2  badr" FontSize="30" Width="112"/>
+                    <Image Source="C:\Users\Chewy\Documents\Programming Stuff\C Language\NotaBene\NotaBene\Images\google.png" Stretch="Uniform" Width="47" Margin="-30,0,10,0"/>
+                </DockPanel>
+
+            </Button>
 
         </Grid>
     </Border>

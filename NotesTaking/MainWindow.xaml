@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotesTaking"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title=" " 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"  
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" 
+        AllowsTransparency="True"
+        Background="Transparent"    
+        Height="680" Width="1000">
 
-    </Grid>
+    <Border CornerRadius="12" Background="#28282b" >
+        <Grid>
+
+        </Grid>
+    </Border>
+    
 </Window>

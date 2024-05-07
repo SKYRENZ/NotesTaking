@@ -59,6 +59,13 @@ namespace NotesTaking
 
         }
 
+        private void btnSignIn_Click(object sender, RoutedEventArgs e)
+        {
+            Dashboard mainDashboard = new Dashboard();
+            this.Visibility = Visibility.Hidden;
+            mainDashboard.Show();
+        }
+
         private void btnMinimize_MouseEnter(object sender, MouseEventArgs e)
         {
             btnMinimize.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C79436"));

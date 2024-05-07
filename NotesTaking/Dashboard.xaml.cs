@@ -23,5 +23,10 @@ namespace NotesTaking
         {
             InitializeComponent();
         }
+
+        private void MouseOnClick(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

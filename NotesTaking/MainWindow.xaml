@@ -33,7 +33,7 @@
             </Rectangle>
             <Ellipse x:Name="btnClose" Grid.Column="2" Margin="0,0,10,0" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>
             <Ellipse x:Name="btnMinimize" Grid.Column="2" Margin="0,0,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
-            <Image Margin="39,0,39,218" Source="C:\Users\Renz\source\repos\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
+            <Image Margin="39,0,39,218" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
             <Label Grid.Column="1" Margin="176,324,176,218" Grid.Row="1">
                 <AccessText FontSize="28" FontWeight="Bold" Foreground="WhiteSmoke" Height="46">
                     Log in:
@@ -48,7 +48,7 @@
         FontWeight="Bold"
         BorderThickness="3"
         BorderBrush="#008E70"
-        Padding="9">
+        Padding="9" Click="btnSignIn_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="25
@@ -56,8 +56,8 @@
                     </Style>
                 </Button.Resources>
                 <DockPanel HorizontalAlignment="Stretch">
-                    <Image Source="C:\Users\Renz\source\repos\NotesTaking\NotesTaking\Images\google.png" Stretch="Uniform" Width="31" Margin="-50,0,0,0" RenderTransformOrigin="0,0" Height="28"/>
-                    <Label Foreground="#008E70" Content="Google" Margin="40,0,0,0" DockPanel.Dock="Right" FontFamily="badr" FontSize="18" Width="100" Height="36"/>
+                    <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\google.png" Stretch="Uniform" Width="31" Margin="-50,0,0,0" RenderTransformOrigin="0,0" Height="28"/>
+                    <Label Foreground="#008E70" Content="Google" Margin="40,0,0,0" DockPanel.Dock="Right" FontFamily="Segoe" FontSize="18" Width="100" Height="36"/>
                 </DockPanel>
 
             </Button>

@@ -16,7 +16,7 @@
         <!--toggle button style template-->
         <ImageBrush 
             x:Key="Menu_MouseOver"
-            ImageSource="Images\MenuIcon1.png"/>
+            ImageSource="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\MenuIcon.png"/>
         
             <!--text-font style-->
         <Style x:Key="Font-Style" TargetType="TextBlock">
@@ -87,7 +87,7 @@
         <Grid>
             
             <!--//background color//-->
-            <Grid Background="#343434">
+            <Grid Background="#343434" MouseLeftButtonDown="MouseOnClick">
                 
                 <!--Navigation Panel-->
                 <Grid x:Name="nav_pnl" 
@@ -141,7 +141,7 @@
 
 
                                 <ToggleButton.Background>
-                                    <ImageBrush ImageSource="Images\menuicon.png"
+                                    <ImageBrush ImageSource="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\MenuIcon.png"
                                                 Stretch="None"/>
                                 </ToggleButton.Background>
                                 

@@ -54,6 +54,11 @@ namespace NotesTaking
             WindowState = WindowState.Minimized;
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
         private void btnMinimize_MouseEnter(object sender, MouseEventArgs e)
         {
             btnMinimize.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C79436"));

@@ -42,21 +42,22 @@
             <Button x:Name="btnSignIn" 
         Background="Transparent"
         Grid.Column="1" 
-        Margin="70,415,70,103" 
+        Margin="105,528,105,10" 
         Grid.Row="1" 
         FontSize="30" 
         FontWeight="Bold"
-        BorderThickness="5"
+        BorderThickness="3"
         BorderBrush="#008E70"
         Padding="9">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="32"/>
+                        <Setter Property="CornerRadius" Value="25
+                                "/>
                     </Style>
                 </Button.Resources>
                 <DockPanel HorizontalAlignment="Stretch">
-                    <Label Foreground="#008E70" Content="Google" DockPanel.Dock="Right" FontFamily="2  badr" FontSize="30" Width="112"/>
-                    <Image Source="C:\Users\Chewy\Documents\Programming Stuff\C Language\NotaBene\NotaBene\Images\google.png" Stretch="Uniform" Width="47" Margin="-30,0,10,0"/>
+                    <Image Source="C:\Users\Chewy\Documents\Programming Stuff\C Language\NotaBene\NotaBene\Images\google.png" Stretch="Uniform" Width="31" Margin="-50,0,0,0" RenderTransformOrigin="0,0" Height="28"/>
+                    <Label Foreground="#008E70" Content="Google" Margin="40,0,0,0" DockPanel.Dock="Right" FontFamily="badr" FontSize="18" Width="100" Height="36"/>
                 </DockPanel>
 
             </Button>

@@ -22,15 +22,15 @@ namespace NotesTaking
         {
 
             InitializeComponent();
+
+            //Revert Color of Close Button
             originalFill = btnClose.Fill as SolidColorBrush;
             originalStroke = btnClose.Stroke as SolidColorBrush;
+
+            //Revert Color of Minimize Button
             originalFillMinimize = btnMinimize.Fill as SolidColorBrush;
             originalStrokeMinimize = btnMinimize.Stroke as SolidColorBrush;
         }
-
-
-
-
 
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -43,8 +43,10 @@ namespace NotesTaking
             Close();
         }
 
+        
         private void btnClose_MouseEnter(object sender, MouseEventArgs e)
         {
+            //Changes the color of close button when hovered
             btnClose.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C7282D"));
             btnClose.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF343A"));
         }
@@ -59,8 +61,10 @@ namespace NotesTaking
 
         }
 
+        
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
+            //Shows Dashboard
             Dashboard mainDashboard = new Dashboard();
             this.Visibility = Visibility.Hidden;
             mainDashboard.Show();
@@ -71,20 +75,28 @@ namespace NotesTaking
 
         }
 
+        private void btnCreateAcc(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        
         private void btnMinimize_MouseEnter(object sender, MouseEventArgs e)
         {
+            //Changes the color of minimize button when hovered
             btnMinimize.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C79436"));
             btnMinimize.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBE45"));
         }
 
         private void btnMinimize_MouseLeave(object sender, MouseEventArgs e)
         {
+            //reverts color to original minimize button
             btnMinimize.Fill = originalFillMinimize;
             btnMinimize.Stroke = originalStrokeMinimize;
         }
 
         private void btnClose_MouseLeave(object sender, MouseEventArgs e)
-        {
+        {   
+            //reverts color to original Close button
             btnClose.Fill = originalFill;
             btnClose.Stroke = originalStroke;
         }

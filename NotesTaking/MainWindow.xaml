@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotesTaking"
         mc:Ignorable="d"
-        Title=" " 
+        Title="" 
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None"  
         MouseLeftButtonDown="Window_MouseLeftButtonDown" 
@@ -13,118 +13,6 @@
         Background="Transparent"    
         Height="680" Width="1000"
         ResizeMode="NoResize">
-    <Window.Resources>
-        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#008E70"/>
-        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
-        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
-        <SolidColorBrush x:Key="TextBox.Static.Background" Color="Transparent"/>
-        <Style x:Key="UserNameTextBox" TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="{StaticResource TextBox.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="AllowDrop" Value="true"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
-                            <Grid>
-                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                                <TextBlock x:Name="PlaceHolderTextBlock"
-                                           Foreground="Gray"
-                                           Text="Username: "
-                                           FontSize="{TemplateBinding FontSize}"
-                                           FontFamily="{TemplateBinding FontFamily}"
-                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                           Margin="5,0,0,0"
-                                           Visibility="Collapsed"/>
-                            </Grid>
-
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsKeyboardFocused" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
-                            </Trigger>
-                            <Trigger Property="Text" Value="">
-                                <Setter Property="Visibility" TargetName="PlaceHolderTextBlock" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
-                        <Condition Property="IsSelectionActive" Value="false"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                </MultiTrigger>
-            </Style.Triggers>
-        </Style>
-        <SolidColorBrush x:Key="TextBox.Static.Border1" Color="#008E70"/>
-        <SolidColorBrush x:Key="TextBox.MouseOver.Border1" Color="#FF7EB4EA"/>
-        <SolidColorBrush x:Key="TextBox.Focus.Border1" Color="#FF569DE5"/>
-        <SolidColorBrush x:Key="TextBox.Static.Background1" Color="Transparent"/>
-        <Style x:Key="PassTextBox" TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="{StaticResource TextBox.Static.Background1}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border1}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="AllowDrop" Value="true"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
-                            <Grid>
-                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                                <TextBlock x:Name="PlaceHolderTextBlock" Foreground="Gray" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" Margin="5,0,0,0" Text="Password: " VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed"/>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border1}"/>
-                            </Trigger>
-                            <Trigger Property="IsKeyboardFocused" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border1}"/>
-                            </Trigger>
-                            <Trigger Property="Text" Value="">
-                                <Setter Property="Visibility" TargetName="PlaceHolderTextBlock" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
-                        <Condition Property="IsSelectionActive" Value="false"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                </MultiTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
 
     <Border CornerRadius="12" Background="#28282b" >
         <Grid x:Name="LogInForm">
@@ -138,19 +26,14 @@
                 <ColumnDefinition Width="450"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="#343434" RadiusX="11" RadiusY="11" Grid.Column="1" Grid.Row="1">
+            <Rectangle Fill="#343434" RadiusX="11" RadiusY="11" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Width="450" Height="590" VerticalAlignment="Top">
                 <Rectangle.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="-40" ShadowDepth="15" Softness="100" Opacity=".45" />
                 </Rectangle.BitmapEffect>
             </Rectangle>
             <Ellipse x:Name="btnClose" Grid.Column="2" Margin="0,0,10,0" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>
             <Ellipse x:Name="btnMinimize" Grid.Column="2" Margin="0,0,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
-            <Image Margin="39,0,39,218" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
-            <Label Grid.Column="1" Margin="176,324,176,218" Grid.Row="1">
-                <AccessText FontSize="28" FontWeight="Bold" Foreground="WhiteSmoke" Height="46">
-                    Log in:
-                </AccessText>
-            </Label>
+            <Image Margin="55,0,55,251" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
             <Button x:Name="btnSignIn" 
         Background="Transparent"
         Grid.Column="1" 
@@ -171,22 +54,56 @@
                 </DockPanel>
 
             </Button>
-            <TextBox Style="{DynamicResource UserNameTextBox}" 
+            <TextBlock
+                Text="Username" Margin="101,364,74,211" Grid.Row="1" Grid.Column="1"
+                FontSize="12"
+                FontWeight="SemiBold"
+                FontFamily="Segoe"
+                Foreground="DimGray"/>
+            <TextBox 
                 Grid.Column="1"
                 Opacity=".5"
                 HorizontalAlignment="Center" 
-                Height="31" 
-                Margin="0,390,0,0" 
+                Margin="0,379,0,185" 
                 Grid.Row="1" 
                 TextWrapping="Wrap" 
-                VerticalAlignment="Top" 
                 Width="248"
                 FontSize="16"
                 Foreground="Azure"
+                Background="Transparent"
+                BorderBrush="#008E70"
                 VerticalContentAlignment="Center"
-                Padding="4,0,0,0"
                 BorderThickness="0,0,0,2.5"/>
-            
+
+            <TextBlock Text="Password" Margin="101,415,74,160" Grid.Row="1" Grid.Column="1"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        FontFamily="Segoe"
+                        Foreground="DimGray"/>
+            <PasswordBox
+                Grid.Column="1"
+                Opacity=".5"
+                HorizontalAlignment="Center" 
+                Margin="0,430,0,134" 
+                Grid.Row="1"
+                Width="248"
+                FontSize="16"
+                Foreground="Azure"
+                Background="Transparent"
+                BorderBrush="#008E70"
+                VerticalContentAlignment="Center"
+                BorderThickness="0,0,0,2.5"/>
+
+            <Label Grid.Column="1" Content="Log In" HorizontalAlignment="Center" Margin="0,307,0,0" Grid.Row="1" VerticalAlignment="Top"
+                   FontSize="30"
+                   FontWeight="SemiBold"
+                   FontFamily="Segoe"
+                   Foreground="WhiteSmoke"
+                   Opacity=".4 "
+                   MouseLeftButtonDown="btnCreateAcc" Cursor="Hand"/>
+
+
+
 
         </Grid>
     </Border>

@@ -8,194 +8,29 @@
         Height="680" Width="1000"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        Background="Transparent"
         Topmost="True"
         WindowStyle="None"
+        MouseLeftButtonDown="Dashboard_MouseLeftButtonDown" 
+        AllowsTransparency="True"
         >
 
-    <Window.Resources>
-        <!--toggle button style template-->
-        <ImageBrush 
-            x:Key="Menu_MouseOver"
-            ImageSource="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\MenuIcon.png"/>
-        
-            <!--text-font style-->
-        <Style x:Key="Font-Style" TargetType="TextBlock">
-            <Setter Property="FontFamily"
-                    Value="Fonts\Roboto-Light.ttf #Roboto"/>
-            
-            <Setter Property="VerticalAlignment"
-                    Value="Center"/>
-
-            <Setter Property="HorizontalAlignment"
-                    Value="Left"/>
-
-            <Setter Property="Foreground"
-                    Value="White"/>
-
-            <Setter Property="FontSize"
-                    Value="20"/>
-
-        </Style>
-
-        <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border
-                            x:Name="Border"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}"
-                            SnapsToDevicePixels="True"
-                            >
-                            
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            
-                            <Trigger  Property="IsMouseOver" Value="True">
-
-                                <Setter Property="Background"
-                                        TargetName="Border"
-                                        Value="{StaticResource Menu_MouseOver}"/>
-                                <Setter Property="BorderBrush"
-                                        TargetName="Border"
-                                        Value="{StaticResource Menu_MouseOver}"/>
-                            </Trigger>
-
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background"
-                                        TargetName="Border"
-                                        Value="{StaticResource Menu_MouseOver}"/>
-                                <Setter Property="BorderBrush"
-                                        TargetName="Border"
-                                        Value="{StaticResource Menu_MouseOver}"/>
-                            </Trigger>
-                            
-                        </ControlTemplate.Triggers>
-                        
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-    </Window.Resources>
-    
-    <Border
-            BorderBrush="#1D735A"
-            BorderThickness="4"
-            CornerRadius="10">
+    <Border CornerRadius="12" Background="#343434">
 
         <Grid>
-            
-            <!--//background color//-->
-            <Grid Background="#343434" MouseLeftButtonDown="MouseOnClick">
-                
-                <!--Navigation Panel-->
-                <Grid x:Name="nav_pnl" 
-                      HorizontalAlignment="Left"
-                      Width="65"
-                      Background="#232226"                   
-                     >
-                    <StackPanel x:Name="st_pnl">
-                        
-                        
-                        <!--grid for menu toggle button-->
-                        <Grid Height="90">
-                            
-                            <!--Menu title Text-->
-                            <TextBlock Grid.Row="1"
-                                       Grid.Column="0"
-                                       Margin="73, -20,0,0 "
-                                       Text="M E N U"
-                                       Foreground="White"
-                                       FontSize="22"
-                                       Background="Transparent"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       Style="{StaticResource Font-Style}">
-                                       
-                                
-                                <!--shadow effect-->
-
-                                <TextBlock.Effect>
-                                    <DropShadowEffect BlurRadius="10"
-                                                      ShadowDepth="1"
-                                                      Direction="90"
-                                                      Color ="White"/>
-                                </TextBlock.Effect>
-                            </TextBlock>
-                            
-                            <!--toggle button-->
-
-                            <ToggleButton x:Name="tg_btn"
-                                          Grid.Column="0"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
-                                          Margin="14,-20,0,0"
-                                          Height="30"
-                                          Width="30"
-                                          BorderThickness="0"
-                                          Style="{StaticResource tb_style}">
-                                
-                                
-                               <!--toggle buttton default background image-->
-
-
-                                <ToggleButton.Background>
-                                    <ImageBrush ImageSource="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\MenuIcon.png"
-                                                Stretch="None"/>
-                                </ToggleButton.Background>
-                                
-                                <!--toggle button - checked, uncheck events-->
-
-                                <ToggleButton.Triggers>
-
-                                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                                        <BeginStoryboard>
-                                            <Storyboard x:Name="HideStackPanel">
-                                                <DoubleAnimation
-                                                    
-                                                    Storyboard.TargetName="nav_pnl"
-                                                    Storyboard.TargetProperty="Width"
-                                                    BeginTime="0:0:0"
-                                                    From="230" To="65"
-                                                    Duration="0:0:0.2">
-                                                    
-                                                </DoubleAnimation>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                        
-                                    </EventTrigger>
-
-                                    <EventTrigger RoutedEvent="ToggleButton.Checked">
-                                        <BeginStoryboard>
-                                            <Storyboard x:Name="ShowStackPanel">
-                                                <DoubleAnimation
-                                                    
-                                                    Storyboard.TargetName="nav_pnl"
-                                                    Storyboard.TargetProperty="width"
-                                                    BeginTime="0:0:0"
-                                                    From="65" To="230"
-                                                    Duration="0:0:0.3"
-                                                    >
-                                                    
-                                                </DoubleAnimation>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </ToggleButton.Triggers>
-                                
-                            </ToggleButton>
-
-                        </Grid>
-                        
-                    </StackPanel>
-                    
-                </Grid>
+            <Ellipse x:Name="btnClose" Margin="960,10,0,0" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>
+            <Ellipse x:Name="btnMinimize" Margin="925,10,0,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
+            <Grid x:Name="navPanel"
+                  HorizontalAlignment="Left"
+                  Width="65"
+                  Background="black">
                 
             </Grid>
-            
+
         </Grid>
 
     </Border>
-  
+
+
+
 </Window>

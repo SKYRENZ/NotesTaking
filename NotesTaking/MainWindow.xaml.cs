@@ -66,6 +66,11 @@ namespace NotesTaking
             mainDashboard.Show();
         }
 
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
         private void btnMinimize_MouseEnter(object sender, MouseEventArgs e)
         {
             btnMinimize.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C79436"));

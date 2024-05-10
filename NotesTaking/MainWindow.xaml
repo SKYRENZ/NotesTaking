@@ -35,15 +35,15 @@
             <Ellipse x:Name="btnMinimize" Grid.Column="2" Margin="0,0,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
             <Image Margin="55,0,55,251" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
             <Button x:Name="btnSignIn" 
-        Background="Transparent"
-        Grid.Column="1" 
-        Margin="165,479,165,73" 
-        Grid.Row="1" 
-        FontSize="10" 
-        FontWeight="Bold"
-        BorderThickness="2.5"
-        BorderBrush="#008E70"
-        Padding="1" Click="btnSignIn_Click">
+                    Background="Transparent"
+                    Grid.Column="1" 
+                    Margin="165,479,165,73" 
+                    Grid.Row="1" 
+                    FontSize="10" 
+                    FontWeight="Bold"
+                    BorderThickness="2.5"
+                    BorderBrush="#008E70"
+                    Padding="1" Click="btnSignIn_Click">    
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="17"/>

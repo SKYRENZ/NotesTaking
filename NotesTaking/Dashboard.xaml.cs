@@ -19,6 +19,8 @@ namespace NotesTaking
     /// </summary>
     public partial class Dashboard : Window
     {
+
+        public CornerRadius CornerRadius { get; set; }
         private SolidColorBrush? originalFill, originalStroke, originalFillMinimize, originalStrokeMinimize;
 
         public Dashboard()

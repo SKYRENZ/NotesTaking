@@ -61,6 +61,7 @@
                 FontFamily="Segoe"
                 Foreground="DimGray"/>
             <TextBox 
+                x:Name="txtUsername"
                 Grid.Column="1"
                 Opacity=".5"
                 HorizontalAlignment="Center" 
@@ -81,6 +82,7 @@
                         FontFamily="Segoe"
                         Foreground="DimGray"/>
             <PasswordBox
+                x:Name="txtPassword"
                 Grid.Column="1"
                 Opacity=".5"
                 HorizontalAlignment="Center" 

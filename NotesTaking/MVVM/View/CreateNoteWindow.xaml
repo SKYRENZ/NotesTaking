@@ -1,7 +1,10 @@
 ﻿<Window x:Class="NotesTaking.MVVM.View.CreateNoteWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Create Note" Height="200" Width="300">
+        Title="Create Note" Height="200" Width="300"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen"
+         WindowStyle="None" >
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

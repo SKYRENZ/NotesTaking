@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 
 namespace NotesTaking
 {
@@ -30,7 +31,64 @@ namespace NotesTaking
                     return count > 0;
                 }
             }
-            catch (Exception )
+            catch (Exception)
+            {
+                // Log or handle the exception appropriately
+                return false;
+            }
+        }
+
+        public int GetLoggedInAccountId(string loggedInUsername)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT AccountID FROM account WHERE AccountUser = @loggedInUsername";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@loggedInUsername", loggedInUsername);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        // User not found
+                        return -1; // Or handle this case accordingly
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Log or handle the exception appropriately
+                return -1; // Return a default or error value
+            }
+        }
+
+        public bool InsertNote(int accountId, string noteTitle, string noteContent)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) VALUES (@accountId, @noteTitle, @noteContent)";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@accountId", accountId);
+                    command.Parameters.AddWithValue("@noteTitle", noteTitle);
+                    command.Parameters.AddWithValue("@noteContent", noteContent);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception)
             {
                 // Log or handle the exception appropriately
                 return false;

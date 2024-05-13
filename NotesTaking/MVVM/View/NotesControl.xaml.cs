@@ -24,5 +24,13 @@ namespace NotesTaking.MVVM.View
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Open the CreateNoteWindow when the button is clicked
+            CreateNoteWindow createNoteWindow = new CreateNoteWindow();
+            createNoteWindow.ShowDialog();
+
+        }
     }
 }

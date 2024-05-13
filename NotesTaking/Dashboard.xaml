@@ -24,7 +24,10 @@
             </Grid.ColumnDefinitions>
 
             <!--Sidebar menu-->
-            <Border CornerRadius="24" Background="#343434" BorderBrush="#008E70" BorderThickness="5" Margin="20,20,0,20">
+            <Border CornerRadius="24" Background="#343434"  BorderThickness="5" Margin="20,51,0,20">
+                <Border.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Direction="-40" ShadowDepth="10" Softness="100" Opacity=".45" />
+                </Border.BitmapEffect>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="150"/>

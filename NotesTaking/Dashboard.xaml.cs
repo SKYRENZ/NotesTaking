@@ -100,7 +100,7 @@ namespace NotesTaking
         private void btnClose_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //When Clicked
-            Close();
+            Application.Current.Shutdown();
         }
 
 

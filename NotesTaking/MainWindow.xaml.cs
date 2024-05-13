@@ -42,7 +42,7 @@ namespace NotesTaking
 
         private void btnClose_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Close();
+           Application.Current.Shutdown();
         }
 
 

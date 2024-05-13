@@ -33,7 +33,7 @@
             </Rectangle>
             <Ellipse x:Name="btnClose" Grid.Column="2" Margin="0,0,10,0" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>
             <Ellipse x:Name="btnMinimize" Grid.Column="2" Margin="0,0,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
-            <Image Margin="55,0,55,251" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
+            <Image Margin="55,0,55,251" Source="C:\Users\Renz\Source\Repos\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
             <Button x:Name="btnSignIn" 
                     Background="Transparent"
                     Grid.Column="1" 

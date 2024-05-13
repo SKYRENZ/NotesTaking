@@ -58,7 +58,7 @@
                         </DockPanel>
                     </Button>
 
-                    <Image Margin="7,14,7,10" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabene.png" Stretch="Fill"/>
+                    <Image Margin="7,14,7,10" Source="Images\notabene.png" Stretch="Fill"/>
                     <!--Archive Button-->
                     <Button x:Name="btnArchive"  
                         HorizontalAlignment="Center" 

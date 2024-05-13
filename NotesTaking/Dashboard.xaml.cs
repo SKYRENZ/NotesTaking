@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NotesTaking.MVVM.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,27 @@ namespace NotesTaking
             //Changes the color of close button when hovered
             btnClose.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C7282D"));
             btnClose.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF343A"));
+        }
+
+        private void btnNotes_Click(object sender, RoutedEventArgs e)
+        {
+            // Load the Notes control into the content area
+            contentArea.Content = new NotesControl();
+        }
+
+        private void btnArchive_Click(object sender, RoutedEventArgs e)
+        {
+            contentArea.Content = new ArchiveControl();
+        }
+
+        private void btnReminders_Click(object sender, RoutedEventArgs e)
+        {
+            contentArea.Content = new RemindersControl();
+        }
+
+        private void btnTrash_Click(object sender, RoutedEventArgs e)
+        {
+            contentArea.Content = new TrashControl();
         }
 
         private void Dashboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

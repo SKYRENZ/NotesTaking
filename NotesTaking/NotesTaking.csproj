@@ -12,7 +12,6 @@
     <Folder Include="Core\" />
     <Folder Include="MVVM\Model\" />
     <Folder Include="MVVM\ViewModel\" />
-    <Folder Include="MVVM\View\" />
     <Folder Include="Themes\" />
   </ItemGroup>
 

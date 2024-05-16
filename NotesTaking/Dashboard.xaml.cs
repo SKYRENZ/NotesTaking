@@ -67,6 +67,7 @@ namespace NotesTaking
         private void btnNotes_Click(object sender, RoutedEventArgs e)
         {
             // Load the Notes control into the content area
+            NotesControl notesControl = new NotesControl();
             contentArea.Content = new NotesControl();
         }
 

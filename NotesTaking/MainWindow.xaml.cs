@@ -66,10 +66,6 @@ namespace NotesTaking
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
-            //Shows Dashboard
-            // Dashboard mainDashboard = new Dashboard();
-            //this.Visibility = Visibility.Hidden;
-            // mainDashboard.Show();
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Password.Trim();
 
@@ -81,6 +77,7 @@ namespace NotesTaking
 
             if (databaseManager.ValidateUser(username, password))
             {
+                UserSession.LoggedInUsername = username;
                 Dashboard mainDashboard = new Dashboard();
                 this.Visibility = Visibility.Hidden;
                 mainDashboard.Show();
@@ -90,9 +87,11 @@ namespace NotesTaking
                 MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-    
 
-    
+
+
+
+
 
 
 

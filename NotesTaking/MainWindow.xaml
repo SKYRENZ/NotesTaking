@@ -103,10 +103,6 @@
                    Foreground="WhiteSmoke"
                    Opacity=".4 "
                    MouseLeftButtonDown="btnCreateAcc" Cursor="Hand"/>
-
-
-
-
         </Grid>
     </Border>
 

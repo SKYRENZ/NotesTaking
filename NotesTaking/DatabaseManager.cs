@@ -5,19 +5,19 @@ namespace NotesTaking
 {
     public class DatabaseManager
     {
-        private string connectionString;
+        public string ConnectionString { get; private set; }
 
         public DatabaseManager()
         {
             // Set your default connection string here or pass it as a parameter to the constructor
-            connectionString = "server=localhost;user=root;database=notetaking_test;port=3306";
+            ConnectionString = "server=localhost;user=root;database=notetaking_test;port=3306";
         }
 
         public bool ValidateUser(string username, string password)
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
                 {
                     connection.Open();
 
@@ -38,42 +38,11 @@ namespace NotesTaking
             }
         }
 
-        public int GetLoggedInAccountId(string loggedInUsername)
-        {
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    string query = "SELECT AccountID FROM account WHERE AccountUser = @loggedInUsername";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@loggedInUsername", loggedInUsername);
-
-                    object result = command.ExecuteScalar();
-                    if (result != null)
-                    {
-                        return Convert.ToInt32(result);
-                    }
-                    else
-                    {
-                        // User not found
-                        return -1; // Or handle this case accordingly
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // Log or handle the exception appropriately
-                return -1; // Return a default or error value
-            }
-        }
-
         public bool InsertNote(int accountId, string noteTitle, string noteContent)
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
                 {
                     connection.Open();
 
@@ -92,6 +61,39 @@ namespace NotesTaking
             {
                 // Log or handle the exception appropriately
                 return false;
+            }
+        }
+
+        public int GetLoggedInAccountId(string loggedInUsername)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT AccountID FROM account WHERE AccountUser = @loggedInUsername";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@loggedInUsername", loggedInUsername);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        // Log: User not found
+                        Console.WriteLine($"User {loggedInUsername} not found.");
+                        return -1; // User not found
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log: Exception
+                Console.WriteLine($"Exception: {ex.Message}");
+                return -1; // Return a default or error value
             }
         }
     }

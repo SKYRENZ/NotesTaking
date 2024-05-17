@@ -66,5 +66,46 @@ namespace NotesTaking.MVVM.View
             // Close the window
             this.Close();
         }
+
+        private void txtTitle_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if(txtTitle.Text == "Note Title:")
+            {
+                txtTitle.Text = string.Empty;
+                txtTitle.Foreground = new SolidColorBrush(Colors.Black);
+            }
+        }
+
+        private void txtTitle_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(txtTitle.Text)) 
+            {
+                txtTitle.Text = "Note Title:";
+                txtTitle.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+        }
+
+        private void txtContent_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtContent.Text == "Note...")
+            {
+                txtContent.Text = string.Empty;
+                txtContent.Foreground = new SolidColorBrush(Colors.Black);
+            }
+        }
+
+        private void txtContent_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtContent.Text))
+            {
+                txtContent.Text = "Note...";
+                txtContent.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

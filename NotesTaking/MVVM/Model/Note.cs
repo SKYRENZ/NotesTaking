@@ -10,5 +10,14 @@ namespace NotesTaking.MVVM.Model
     {
         public string NoteTitle { get; set; }
         public string NoteContent { get; set; }
+
+        public Note() { }
+
+        public Note(string noteTitle, string noteContent)
+        {
+            NoteTitle = noteTitle;
+            NoteContent = noteContent;
+        }
     }
 }
+

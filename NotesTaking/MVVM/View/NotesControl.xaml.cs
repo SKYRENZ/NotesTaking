@@ -45,36 +45,14 @@ namespace NotesTaking.MVVM.View
 
             if (accountId != -1)
             {
-                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString))
-                {
-                    connection.Open();
-
-                    string query = "SELECT NoteTitle, NoteContent FROM notes WHERE AccountID = @AccountID";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@AccountID", accountId);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Note note = new Note
-                            {
-                                NoteTitle = reader.GetString("NoteTitle"),
-                                NoteContent = reader.GetString("NoteContent")
-                            };
-                            Notes.Add(note);
-                        }
-                    }
-                }
+                Notes = dbManager.LoadNotes(accountId);
+                NotesItemsControl.ItemsSource = Notes;
             }
             else
             {
                 MessageBox.Show("Error: Unable to find account for logged-in user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
-
     }
  
 }

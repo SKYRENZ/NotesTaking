@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
+using NotesTaking.MVVM.Model;
 using System;
+using System.Collections.ObjectModel;
 
 namespace NotesTaking
 {
@@ -96,5 +98,43 @@ namespace NotesTaking
                 return -1; // Return a default or error value
             }
         }
+
+        public ObservableCollection<Note> LoadNotes(int accountId)
+        {
+            ObservableCollection<Note> notes = new ObservableCollection<Note>();
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT NoteTitle, NoteContent FROM notes WHERE AccountID = @AccountID";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@AccountID", accountId);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Note note = new Note
+                            {
+                                NoteTitle = reader.GetString("NoteTitle"),
+                                NoteContent = reader.GetString("NoteContent")
+                            };
+                            notes.Add(note);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log: Exception
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
+
+            return notes;
+        }
     }
 }
+

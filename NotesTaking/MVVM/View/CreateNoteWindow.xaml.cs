@@ -1,27 +1,14 @@
-﻿using NotesTaking.MVVM.ViewModel;
+﻿using NotesTaking.MVVM.Model;
+using NotesTaking.MVVM.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NotesTaking.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for CreateNoteWindow.xaml
-    /// </summary>
     public partial class CreateNoteWindow : Window
     {
-        public string NoteTitle { get; private set; }
-        public string NoteContent { get; private set; }
+        public Note NewNote { get; private set; }
 
         public CreateNoteWindow()
         {
@@ -30,8 +17,8 @@ namespace NotesTaking.MVVM.View
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            NoteTitle = txtTitle.Text;
-            NoteContent = txtContent.Text;
+            string noteTitle = txtTitle.Text;
+            string noteContent = txtContent.Text;
             string loggedInUsername = UserSession.LoggedInUsername; // Retrieve the logged-in username
 
             if (string.IsNullOrEmpty(loggedInUsername))
@@ -51,11 +38,16 @@ namespace NotesTaking.MVVM.View
             }
 
             // Insert the note into the database
-            bool isInserted = dbManager.InsertNote(accountId, NoteTitle, NoteContent);
+            bool isInserted = dbManager.InsertNote(accountId, noteTitle, noteContent);
 
             if (isInserted)
             {
                 Console.WriteLine("Note added successfully.");
+                NewNote = new Note
+                {
+                    NoteTitle = noteTitle,
+                    NoteContent = noteContent
+                };
                 DialogResult = true; // Indicate the note was successfully created
             }
             else
@@ -70,7 +62,7 @@ namespace NotesTaking.MVVM.View
 
         private void txtTitle_GotFocus(object sender, RoutedEventArgs e)
         {
-            if(txtTitle.Text == "Note Title:")
+            if (txtTitle.Text == "Note Title:")
             {
                 txtTitle.Text = string.Empty;
                 txtTitle.Foreground = new SolidColorBrush(Colors.Black);
@@ -79,7 +71,7 @@ namespace NotesTaking.MVVM.View
 
         private void txtTitle_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txtTitle.Text)) 
+            if (string.IsNullOrWhiteSpace(txtTitle.Text))
             {
                 txtTitle.Text = "Note Title:";
                 txtTitle.Foreground = new SolidColorBrush(Colors.Gray);

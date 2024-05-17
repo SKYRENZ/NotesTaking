@@ -28,11 +28,7 @@ namespace NotesTaking.MVVM.View
 
             if (result == true)
             {
-                Note newNote = new Note
-                {
-                    NoteTitle = createNoteWindow.NoteTitle,
-                    NoteContent = createNoteWindow.NoteContent
-                };
+                Note newNote = createNoteWindow.NewNote;
                 Notes.Add(newNote);
             }
         }

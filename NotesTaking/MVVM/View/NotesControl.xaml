@@ -18,7 +18,7 @@
         <ItemsControl x:Name="NotesItemsControl" Grid.Row="1" Margin="0,10,0,0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,5" Padding="5" MouseLeftButtonUp="NoteItem_MouseLeftButtonUp">
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,5" Padding="5">
                         <StackPanel>
                             <TextBlock Text="{Binding NoteTitle}" FontWeight="Bold" Margin="0,0,0,3"/>
                             <TextBlock Text="{Binding NoteContent}" TextWrapping="Wrap"/>

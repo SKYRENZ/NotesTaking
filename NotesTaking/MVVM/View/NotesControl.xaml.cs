@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MySql.Data.MySqlClient;
+using NotesTaking.MVVM.Model;
 using NotesTaking.MVVM.ViewModel;
 
 namespace NotesTaking.MVVM.View
@@ -71,31 +72,11 @@ namespace NotesTaking.MVVM.View
                 MessageBox.Show("Error: Unable to find account for logged-in user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-    
 
-    public class Note
-    {
-        public string NoteTitle { get; set; }
-        public string NoteContent { get; set; }
-    }
 
-    private void NoteItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-    {
-        {
-            // Retrieve the clicked note
-            Border border = sender as Border;
-            if (border != null)
-            {
-                Note clickedNote = border.DataContext as Note;
-                if (clickedNote != null)
-                {
-                    // Expand the clicked note, for example, show details in a popup or navigate to a detailed view
-                    MessageBox.Show($"Title: {clickedNote.NoteTitle}\nContent: {clickedNote.NoteContent}", "Note Details");
-                }
-            }
-        }
+
     }
-}
+ 
 }
 
 

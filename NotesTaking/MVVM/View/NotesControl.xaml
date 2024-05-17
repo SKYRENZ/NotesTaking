@@ -22,11 +22,19 @@
                         <StackPanel>
                             <TextBlock Text="{Binding NoteTitle}" FontWeight="Bold" Margin="0,0,0,3"/>
                             <TextBlock Text="{Binding NoteContent}" TextWrapping="Wrap"/>
+                            <StackPanel x:Name="EditPanel" Visibility="Collapsed">
+                                <TextBox Text="{Binding NoteTitle, Mode=TwoWay}" FontWeight="Bold" Margin="0,0,0,3"/>
+                                <TextBox Text="{Binding NoteContent, Mode=TwoWay}" TextWrapping="Wrap"/>
+                                <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Right" Width="50" Margin="5,0,0,0" Click="SaveNoteButton_Click" Visibility="Collapsed"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="EditButton" Content="Edit" HorizontalAlignment="Right" Width="50" Margin="5,0,0,0" Click="EditNoteButton_Click"/>
+                                <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Right" Width="50" Margin="5,0,0,0" Click="DeleteNoteButton_Click"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
     </Grid>
 </UserControl>

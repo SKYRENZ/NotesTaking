@@ -32,19 +32,6 @@ namespace NotesTaking.MVVM.View
                     NoteContent = createNoteWindow.NoteContent
                 };
                 Notes.Add(newNote);
-                SaveNoteToDatabase(newNote);
-            }
-        }
-
-        private void SaveNoteToDatabase(Note note)
-        {
-            string loggedInUsername = UserSession.LoggedInUsername;
-
-            DatabaseManager dbManager = new DatabaseManager();
-            int accountId = dbManager.GetLoggedInAccountId(loggedInUsername);
-            if (accountId != -1)
-            {
-                dbManager.InsertNote(accountId, note.NoteTitle, note.NoteContent);
             }
         }
 

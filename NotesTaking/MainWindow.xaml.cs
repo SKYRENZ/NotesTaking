@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using NotesTaking.MVVM.ViewModel;
 
 namespace NotesTaking
 {
@@ -87,12 +88,6 @@ namespace NotesTaking
                 MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
-
-
-
-
 
 
         private void btnCreateAcc(object sender, MouseButtonEventArgs e)

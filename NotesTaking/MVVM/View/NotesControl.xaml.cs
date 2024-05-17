@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MySql.Data.MySqlClient;
+using NotesTaking.MVVM.ViewModel;
 
 namespace NotesTaking.MVVM.View
 {

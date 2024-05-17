@@ -34,9 +34,17 @@ namespace NotesTaking
             //Revert Color of Minimize Button
             originalFillMinimize = btnMinimize.Fill as SolidColorBrush;
             originalStrokeMinimize = btnMinimize.Stroke as SolidColorBrush;
+
+            // Set NotesControl as the default view
+            SetDefaultView();
         }
 
-       
+
+        private void SetDefaultView()
+        {
+            NotesControl notesControl = new NotesControl();
+            contentArea.Content = notesControl;
+        }
 
         private void btnMinimize_MouseEnter(object sender, MouseEventArgs e)
         {

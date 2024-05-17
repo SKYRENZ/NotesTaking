@@ -8,6 +8,8 @@ namespace NotesTaking.MVVM.Model
 {
     public class Note
     {
+
+        public int NotesID { get; set; }
         public string NoteTitle { get; set; }
         public string NoteContent { get; set; }
     }

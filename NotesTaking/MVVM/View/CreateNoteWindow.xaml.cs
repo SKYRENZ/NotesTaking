@@ -8,7 +8,8 @@ namespace NotesTaking.MVVM.View
 {
     public partial class CreateNoteWindow : Window
     {
-        public Note NewNote { get; private set; }
+        public string NoteTitle { get; private set; }
+        public string NoteContent { get; private set; }
 
         public CreateNoteWindow()
         {
@@ -17,8 +18,8 @@ namespace NotesTaking.MVVM.View
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            string noteTitle = txtTitle.Text;
-            string noteContent = txtContent.Text;
+            NoteTitle = txtTitle.Text;
+            NoteContent = txtContent.Text;
             string loggedInUsername = UserSession.LoggedInUsername; // Retrieve the logged-in username
 
             if (string.IsNullOrEmpty(loggedInUsername))
@@ -38,16 +39,11 @@ namespace NotesTaking.MVVM.View
             }
 
             // Insert the note into the database
-            bool isInserted = dbManager.InsertNote(accountId, noteTitle, noteContent);
+            bool isInserted = dbManager.InsertNote(accountId, NoteTitle, NoteContent);
 
             if (isInserted)
             {
                 Console.WriteLine("Note added successfully.");
-                NewNote = new Note
-                {
-                    NoteTitle = noteTitle,
-                    NoteContent = noteContent
-                };
                 DialogResult = true; // Indicate the note was successfully created
             }
             else

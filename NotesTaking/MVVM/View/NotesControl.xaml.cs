@@ -2,8 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using MySql.Data.MySqlClient;
 using NotesTaking.MVVM.Model;
 using NotesTaking.MVVM.ViewModel;
 
@@ -17,7 +15,7 @@ namespace NotesTaking.MVVM.View
         {
             InitializeComponent();
             Notes = new ObservableCollection<Note>();
-            NotesItemsControl.ItemsSource = Notes; // Updated line
+            NotesItemsControl.ItemsSource = Notes; // Set the item source
             LoadNotes();
         }
 
@@ -28,7 +26,11 @@ namespace NotesTaking.MVVM.View
 
             if (result == true)
             {
-                Note newNote = createNoteWindow.NewNote;
+                Note newNote = new Note
+                {
+                    NoteTitle = createNoteWindow.NoteTitle,
+                    NoteContent = createNoteWindow.NoteContent
+                };
                 Notes.Add(newNote);
             }
         }
@@ -42,7 +44,7 @@ namespace NotesTaking.MVVM.View
             if (accountId != -1)
             {
                 Notes = dbManager.LoadNotes(accountId);
-                NotesItemsControl.ItemsSource = Notes;
+                NotesItemsControl.ItemsSource = Notes; // Refresh the item source
             }
             else
             {

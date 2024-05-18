@@ -33,7 +33,7 @@
                              Padding="5"
                              FontSize="12" 
                              GotFocus="txtContent_GotFocus" 
-                             LostFocus="txtContent_LostFocus" />
+                             LostFocus="txtContent_LostFocus" TextChanged="txtContent_TextChanged" />
 
                     <Button Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" Margin="0,278,22,5" Width="56"/>
                     <Button Content="Cancel" Margin="20,278,316,5" Click="btnCancel_Click"/>

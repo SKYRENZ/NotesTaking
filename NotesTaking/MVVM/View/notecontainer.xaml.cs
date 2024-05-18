@@ -1,24 +1,20 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace NotesTaking.MVVM.View
 {
-    public partial class notecontainer : UserControl
+    public partial class NoteContainer : UserControl
     {
-        public notecontainer()
+        public NoteContainer()
         {
             InitializeComponent();
-            this.MouseLeftButtonDown += Notecontainer_MouseLeftButtonDown;
+            Loaded += NoteContainer_Loaded;
         }
 
-        private void Notecontainer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void NoteContainer_Loaded(object sender, RoutedEventArgs e)
         {
-            // Toggle the visibility of the note content
-            if (NoteContentTextBlock.Visibility == Visibility.Collapsed)
-                NoteContentTextBlock.Visibility = Visibility.Visible;
-            else
-                NoteContentTextBlock.Visibility = Visibility.Collapsed;
+        
         }
     }
 }

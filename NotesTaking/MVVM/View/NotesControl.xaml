@@ -15,14 +15,17 @@
         <!-- Create Note Button -->
         <Button Content="Create Note" HorizontalAlignment="Center" Height="30" Width="120" Click="CreateNoteButton_Click" Margin="0,10"/>
 
-        <!-- Notes Display Area -->
-        <ItemsControl x:Name="NotesItemsControl" Grid.Row="1" Margin="0,10,0,0">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <view:notecontainer />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
+        <!-- Notes Display Area with ScrollViewer -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="NotesItemsControl" Margin="0,10,0,0" ItemsSource="{Binding Notes}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <view:NoteContainer />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>
+
+

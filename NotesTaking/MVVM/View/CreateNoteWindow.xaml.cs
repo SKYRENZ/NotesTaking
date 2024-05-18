@@ -1,5 +1,6 @@
 ﻿using NotesTaking.MVVM.Model;
 using NotesTaking.MVVM.ViewModel;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Windows;
 using System.Windows.Media;
@@ -96,5 +97,26 @@ namespace NotesTaking.MVVM.View
         {
             Close();
         }
+
+        private void txtContent_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+        private void CreateNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateNoteWindow createNoteWindow = new CreateNoteWindow();
+            bool? result = createNoteWindow.ShowDialog();
+
+            if (result == true)
+            {
+                Note newNote = new Note
+                {
+                    NoteTitle = createNoteWindow.NoteTitle,
+                    NoteContent = createNoteWindow.NoteContent // Assign the content from the textbox
+                };
+                
+            }
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using MySql.Data.MySqlClient;
 using NotesTaking.MVVM.Model;
 using NotesTaking.MVVM.ViewModel;
 

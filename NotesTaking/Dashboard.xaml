@@ -19,12 +19,12 @@
     <Border CornerRadius="24" Background="#28282b">
         <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="212"/>
+                <ColumnDefinition Width="179"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <!--Sidebar menu-->
-            <Border CornerRadius="24" Background="#343434" Margin="20,50,0,20">
+            <Border CornerRadius="24" Background="#343434" Margin="20,56,10,20">
                 <Border.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="-40" ShadowDepth="15" Softness="100" Opacity=".45" />
 
@@ -42,16 +42,15 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <!--Notes Button-->
-                    <Button x:Name="btnNotes"  
-        HorizontalAlignment="Center" 
+                    <Button x:Name="btnNotes" 
         Grid.Row="1" 
-        VerticalAlignment="Top" 
-        Height="50" Width="120"
+        VerticalAlignment="Center" 
+        Height="50"
         Background="#28282B"
         FontSize="10" 
         FontWeight="Bold"
         Click="btnNotes_Click"
-        BorderThickness="0" Margin="0,45,0,0" Grid.RowSpan="2">
+        BorderThickness="0" Margin="14,0,15,0">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <!-- Set initial background color to black -->
@@ -91,18 +90,17 @@
                     </Button>
 
 
-                    <Image Margin="28,54,28,10" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabenelogocircle.png" Stretch="Fill"/>
+                    <Image Margin="28,32,28,32" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabenelogocircle.png" Stretch="Fill"/>
                     <!--Archive Button-->
-                    <Button x:Name="btnArchive"  
-                        HorizontalAlignment="Left" 
+                    <Button x:Name="btnArchive" 
                         Grid.Row="3" 
-                        VerticalAlignment="Top" 
-                        Height="50" Width="120"
+                        VerticalAlignment="Center" 
+                        Height="50"
                         Background="#28282b"
                         FontSize="10" 
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Click="btnArchive_Click" Margin="0,31,0,0" Grid.RowSpan="2">
+                        Click="btnArchive_Click" Margin="12,0,12,0">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -115,16 +113,13 @@
                     </Button>
 
                     <!--Reminder Button-->
-                    <Button x:Name="btnReminders"  
-                        HorizontalAlignment="Left" 
-                        Grid.Row="5" 
-                        VerticalAlignment="Top" 
-                        Height="50" Width="120"
+                    <Button x:Name="btnReminders" 
+                        Grid.Row="5"
                         Background="#28282B"
                         FontSize="10" 
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Click="btnReminders_Click" Margin="0,32,0,0" Grid.RowSpan="2">
+                        Click="btnReminders_Click" Margin="12,10,12,10">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -135,16 +130,15 @@
                             <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\Reminder.png" Height="30" Width="24" Margin="2"/>
                         </DockPanel>
                     </Button>
-                    <Button x:Name="btnTrash"  
-                        HorizontalAlignment="Left" 
+                    <Button x:Name="btnTrash" 
                         Grid.Row="7" 
-                        VerticalAlignment="Top" 
-                        Height="50" Width="120"
+                        VerticalAlignment="Center" 
+                        Height="50"
                         Background="#28282B"
                         FontSize="10" 
                         FontWeight="Bold"
                         BorderThickness="0"
-                        BorderBrush="#008E70" Click="btnTrash_Click" Margin="0,35,0,0" Grid.RowSpan="2">
+                        BorderBrush="#008E70" Click="btnTrash_Click" Margin="12,0,12,0">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -162,7 +156,7 @@
             <Ellipse x:Name="btnMinimize" Grid.Column="1" Margin="0,10,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
             <!--Main Content menu-->
             <!-- ControlArea -->
-            <ContentControl x:Name="contentArea" Grid.Column="1" Margin="20,60,20,20">
+            <ContentControl x:Name="contentArea" Grid.Column="1" Margin="10,60,20,20">
 
             </ContentControl>
         </Grid>

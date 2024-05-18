@@ -34,7 +34,7 @@
                 <!-- Background Button -->
                 <Button Content="Background" Margin="5"/>
                 <!-- More Buttons can be added here -->
-            </StackPanel>
+            </StackPanel> 
         </Grid>
     </Border>
 </UserControl>

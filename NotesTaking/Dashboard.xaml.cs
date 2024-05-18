@@ -1,4 +1,5 @@
-﻿using NotesTaking.MVVM.View;
+﻿using NotesTaking;
+using NotesTaking.MVVM.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -133,5 +134,14 @@ namespace NotesTaking
             //When Clicked
             Application.Current.Shutdown();
         }
+    }
+}
+
+public partial class Dashboard : Window
+{
+    public Dashboard()
+    {
+        InitializeComponent();
+        DataContext = new DateTimeViewModel();
     }
 }

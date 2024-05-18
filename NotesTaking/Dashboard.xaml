@@ -19,7 +19,7 @@
     <Border CornerRadius="24" Background="#28282b">
         <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="212"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -94,7 +94,7 @@
                     <Image Margin="28,54,28,10" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabenelogocircle.png" Stretch="Fill"/>
                     <!--Archive Button-->
                     <Button x:Name="btnArchive"  
-                        HorizontalAlignment="Center" 
+                        HorizontalAlignment="Left" 
                         Grid.Row="3" 
                         VerticalAlignment="Top" 
                         Height="50" Width="120"
@@ -116,7 +116,7 @@
 
                     <!--Reminder Button-->
                     <Button x:Name="btnReminders"  
-                        HorizontalAlignment="Center" 
+                        HorizontalAlignment="Left" 
                         Grid.Row="5" 
                         VerticalAlignment="Top" 
                         Height="50" Width="120"
@@ -136,7 +136,7 @@
                         </DockPanel>
                     </Button>
                     <Button x:Name="btnTrash"  
-                        HorizontalAlignment="Center" 
+                        HorizontalAlignment="Left" 
                         Grid.Row="7" 
                         VerticalAlignment="Top" 
                         Height="50" Width="120"

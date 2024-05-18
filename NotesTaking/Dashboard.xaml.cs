@@ -1,28 +1,16 @@
 ﻿using NotesTaking.MVVM.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NotesTaking
 {
-    /// <summary>
-    /// Interaction logic for Dashboard.xaml
-    /// </summary>
     public partial class Dashboard : Window
     {
-
         public CornerRadius CornerRadius { get; set; }
         private SolidColorBrush? originalFill, originalStroke, originalFillMinimize, originalStrokeMinimize;
+        private Button previousButton; // Variable to keep track of the previously clicked button
 
         public Dashboard()
         {
@@ -38,7 +26,6 @@ namespace NotesTaking
             // Set NotesControl as the default view
             SetDefaultView();
         }
-
 
         private void SetDefaultView()
         {
@@ -72,26 +59,61 @@ namespace NotesTaking
             btnClose.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF343A"));
         }
 
+        private void HighlightButton(Button button)
+        {
+            // Highlight the clicked button
+            button.Background = Brushes.LightBlue;
+
+            // If there was a previously clicked button, reset its background
+            if (previousButton != null && previousButton != button)
+            {
+                // Reset the background of the previously clicked button
+                previousButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#28282B"));
+            }
+
+            // Update the previousButton variable to the currently clicked button
+            previousButton = button;
+        }
+
+
         private void btnNotes_Click(object sender, RoutedEventArgs e)
         {
             // Load the Notes control into the content area
             NotesControl notesControl = new NotesControl();
-            contentArea.Content = new NotesControl();
+            contentArea.Content = notesControl;
+
+            // Highlight the clicked button
+            HighlightButton(sender as Button);
         }
 
         private void btnArchive_Click(object sender, RoutedEventArgs e)
         {
-            contentArea.Content = new ArchiveControl();
+            // Load the Archive control into the content area
+            ArchiveControl archiveControl = new ArchiveControl();
+            contentArea.Content = archiveControl;
+
+            // Highlight the clicked button
+            HighlightButton(sender as Button);
         }
 
         private void btnReminders_Click(object sender, RoutedEventArgs e)
         {
-            contentArea.Content = new RemindersControl();
+            // Load the Reminders control into the content area
+            RemindersControl remindersControl = new RemindersControl();
+            contentArea.Content = remindersControl;
+
+            // Highlight the clicked button
+            HighlightButton(sender as Button);
         }
 
         private void btnTrash_Click(object sender, RoutedEventArgs e)
         {
-            contentArea.Content = new TrashControl();
+            // Load the Trash control into the content area
+            TrashControl trashControl = new TrashControl();
+            contentArea.Content = trashControl;
+
+            // Highlight the clicked button
+            HighlightButton(sender as Button);
         }
 
         private void Dashboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -111,8 +133,5 @@ namespace NotesTaking
             //When Clicked
             Application.Current.Shutdown();
         }
-
-
-      
     }
 }

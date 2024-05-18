@@ -22,21 +22,9 @@
             </ScrollViewer>
 
             <!-- Panel for common use buttons -->
-<<<<<<< Updated upstream
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                <!-- Add Image Button -->
-                <Button Content="Add Image" Margin="5"/>
-                <!-- Reminder Button -->
-                <Button Content="Reminder" Margin="5"/>
-                <!-- Favorite Button -->
-                <Button Content="Favorite" Margin="5"/>
-                <!-- Background Button -->
-                <Button Content="Background" Margin="5"/>
-                <!-- More Buttons can be added here -->
-            </StackPanel> 
-=======
+
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5"/>
->>>>>>> Stashed changes
+
         </Grid>
     </Border>
 </UserControl>

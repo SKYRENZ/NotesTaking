@@ -23,6 +23,18 @@ namespace NotesTaking.MVVM.View
             NoteContent = txtContent.Text;
             string loggedInUsername = UserSession.LoggedInUsername; // Retrieve the logged-in username
 
+            if (string.IsNullOrWhiteSpace(NoteTitle) || NoteTitle == "Note Title:")
+            {
+                MessageBox.Show("Please enter a title for the note.", "Missing Title", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(NoteContent) || NoteContent == "Note...")
+            {
+                MessageBox.Show("Please enter content for the note.", "Missing Content", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (string.IsNullOrEmpty(loggedInUsername))
             {
                 Console.WriteLine("Error: No user is currently logged in.");

@@ -10,6 +10,8 @@ namespace NotesTaking
     public partial class Dashboard : Window
     {
         public CornerRadius CornerRadius { get; set; }
+        
+
         private SolidColorBrush? originalFill, originalStroke, originalFillMinimize, originalStrokeMinimize;
         private Button previousButton; // Variable to keep track of the previously clicked button
 
@@ -26,6 +28,7 @@ namespace NotesTaking
 
             // Set NotesControl as the default view
             SetDefaultView();
+           
         }
 
         private void SetDefaultView()

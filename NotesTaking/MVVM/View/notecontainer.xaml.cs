@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace NotesTaking.MVVM.View
 {
@@ -9,12 +10,17 @@ namespace NotesTaking.MVVM.View
         public NoteContainer()
         {
             InitializeComponent();
-            Loaded += NoteContainer_Loaded;
+           
         }
 
-        private void NoteContainer_Loaded(object sender, RoutedEventArgs e)
+        private void NoteContainer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-        
+            // Create and show the NotePopupWindow when a NoteContainer is clicked
+            NotePopupWindow popupWindow = new NotePopupWindow
+            {
+                DataContext = this.DataContext // Pass the data context to the popup
+            };
+            popupWindow.ShowDialog();
         }
     }
 }

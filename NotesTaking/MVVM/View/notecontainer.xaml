@@ -4,26 +4,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="250" d:DesignWidth="300">
-
-    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" CornerRadius="5" Background="White">
-        <Grid>
+             d:DesignHeight="334" d:DesignWidth="468.4">
+    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" CornerRadius="5" Background="White" MouseLeftButtonDown="NoteContainer_MouseLeftButtonDown">
+        <Grid MouseLeftButtonDown="NoteContainer_MouseLeftButtonDown">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
-                <!-- Row for buttons -->
             </Grid.RowDefinitions>
 
             <!-- Title TextBox -->
-            <TextBox Grid.Row="0" Text="{Binding NoteTitle}" FontWeight="Bold" BorderThickness="0" Background="Transparent" Margin="5"/>
+            <TextBox Grid.Row="0" Text="{Binding NoteTitle}" FontWeight="Bold" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True" />
 
             <!-- Note Content TextBox with ScrollViewer -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <TextBox Text="{Binding NoteContent}" TextWrapping="Wrap" BorderThickness="0" Background="Transparent" Margin="5"/>
+                <TextBox Text="{Binding NoteContent}" TextWrapping="Wrap" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True" />
             </ScrollViewer>
 
             <!-- Panel for common use buttons -->
+<<<<<<< Updated upstream
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                 <!-- Add Image Button -->
                 <Button Content="Add Image" Margin="5"/>
@@ -35,6 +34,9 @@
                 <Button Content="Background" Margin="5"/>
                 <!-- More Buttons can be added here -->
             </StackPanel> 
+=======
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5"/>
+>>>>>>> Stashed changes
         </Grid>
     </Border>
 </UserControl>

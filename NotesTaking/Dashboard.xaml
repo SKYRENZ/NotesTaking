@@ -9,7 +9,6 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Background="Transparent"
-        Topmost="True"
         WindowStyle="None"
         MouseLeftButtonDown="Dashboard_MouseLeftButtonDown" 
         AllowsTransparency="True"
@@ -20,7 +19,7 @@
         <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="179"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="821"/>
             </Grid.ColumnDefinitions>
 
             <!--Sidebar menu-->

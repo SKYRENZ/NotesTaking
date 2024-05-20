@@ -85,12 +85,12 @@
                         </Button.Style>
                         <DockPanel VerticalAlignment="Top">
                             <Label Foreground="#008E70" Content="Notes" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="70" Height="43" Background="Transparent"/>
-                            <Image Height="30" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\Notes.png" Stretch="Fill" Width="30" Margin="10,0,0,0"/>
+                            <Image Height="30" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\Notes.png" Stretch="Fill" Width="30" Margin="10,0,0,0"/>
                         </DockPanel>
                     </Button>
 
 
-                    <Image Margin="28,32,28,32" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\notabenelogocircle.png" Stretch="Fill"/>
+                    <Image Margin="28,32,28,32" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabenelogocircle.png" Stretch="Fill"/>
                     <!--Archive Button-->
                     <Button x:Name="btnArchive" 
                         Grid.Row="3" 
@@ -108,7 +108,7 @@
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
                             <Label Foreground="#008E70" Content="Archive" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="66"/>
-                            <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\Archive.png" Stretch="Fill" Margin="10,0,5,0" Height="25" Width="22"/>
+                            <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\Archive.png" Stretch="Fill" Margin="10,0,5,0" Height="25" Width="22"/>
                         </DockPanel>
                     </Button>
 
@@ -127,7 +127,7 @@
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
                             <Label Foreground="#008E70" Content="Reminders" FontFamily="Segoe" FontSize="14" DockPanel.Dock="Right" Width="80" Height="26"/>
-                            <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\Reminder.png" Height="30" Width="24" Margin="2"/>
+                            <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\Reminder.png" Height="30" Width="24" Margin="2"/>
                         </DockPanel>
                     </Button>
                     <Button x:Name="btnTrash" 
@@ -145,7 +145,7 @@
                             </Style>
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
-                            <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\trash.png" Height="30" Width="24" Margin="2"/>
+                            <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\trash.png" Height="30" Width="24" Margin="2"/>
                             <Label Foreground="#008E70" Content="Trash" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="50" Height="30"/>
                         </DockPanel>
                     </Button>

@@ -43,7 +43,7 @@
                     FontWeight="Bold"
                     BorderThickness="2.5"
                     BorderBrush="#008E70"
-                    Padding="1" Click="btnSignIn_Click">    
+                    Padding="1" Click="btnSignIn_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="17"/>

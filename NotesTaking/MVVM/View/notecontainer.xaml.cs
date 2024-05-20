@@ -15,12 +15,11 @@ namespace NotesTaking.MVVM.View
 
         private void NoteContainer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // Create and show the NotePopupWindow when a NoteContainer is clicked
             NotePopupWindow popupWindow = new NotePopupWindow
             {
                 DataContext = this.DataContext // Pass the data context to the popup
             };
             popupWindow.ShowDialog();
-        }
+        }   
     }
 }

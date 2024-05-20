@@ -28,7 +28,9 @@ namespace NotesTaking
 
             // Set NotesControl as the default view
             SetDefaultView();
-           
+            DataContext = new DateTimeViewModel();
+
+
         }
 
         private void SetDefaultView()
@@ -140,11 +142,3 @@ namespace NotesTaking
     }
 }
 
-public partial class Dashboard : Window
-{
-    public Dashboard()
-    {
-        InitializeComponent();
-        DataContext = new DateTimeViewModel();
-    }
-}

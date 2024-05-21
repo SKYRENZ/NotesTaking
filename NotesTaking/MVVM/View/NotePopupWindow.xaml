@@ -26,6 +26,7 @@
                     <Button x:Name="SaveButton" Content="Save" Margin="5" Click="SaveButton_Click"/>
                     <Button x:Name="DeleteButton" Content="Delete" Margin="5" Click="DeleteButton_Click"/>
                     <Button x:Name="ArchiveButton" Content="Archive" Margin="5" Click="ArchiveButton_Click"/>
+                    <Button x:Name="CancelButton" Content="Cancel" Margin="5" Click="CancelButton_Click"/>
                 </StackPanel>
 
                 <!-- Close Button Image -->

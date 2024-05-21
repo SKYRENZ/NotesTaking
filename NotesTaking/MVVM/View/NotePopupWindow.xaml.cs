@@ -13,7 +13,6 @@ namespace NotesTaking.MVVM.View
     /// </summary>
     public partial class NotePopupWindow : Window
     {
-
         private readonly NoteViewModel _noteViewModel;
         public NotePopupWindow()
         {
@@ -24,12 +23,36 @@ namespace NotesTaking.MVVM.View
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add your delete button logic here if needed
-        }
+            Button deleteButton = sender as Button;
+            if (deleteButton != null)
+            {
+                Note noteToDelete = deleteButton.DataContext as Note;
+                if (noteToDelete != null)
+                {
+                    // Ask for user confirmation before deleting the note
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this note?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        try
+                        {
+                            // Move the note to the trash table
+                            MoveNoteToTrash(noteToDelete);
 
-        private void btnClose_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
+                            // Delete the note from the database
+                            DeleteNoteFromDatabase(noteToDelete);
+
+                            MessageBox.Show("Note deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            // Close the window after deleting
+                            this.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error deleting note: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -120,7 +143,6 @@ namespace NotesTaking.MVVM.View
             }
         }
 
-
         private void ArchiveNote(Note note)
         {
             // Instantiate DatabaseManager to access the connection string
@@ -170,6 +192,58 @@ namespace NotesTaking.MVVM.View
             }
         }
 
+        private void MoveNoteToTrash(Note note)
+        {
+            // Instantiate DatabaseManager to access the connection string
+            DatabaseManager dbManager = new DatabaseManager();
 
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString))
+                {
+                    connection.Open();
+
+                    // Prepare the SQL INSERT query to move note to trash table
+                    string insertTrashQuery = "INSERT INTO trash (AccountID, NoteID, TrashedDate, TrashTitle, TrashContent) " +
+                                              "SELECT AccountID, NotesID, NOW(), NoteTitle, NoteContent FROM notes WHERE NotesID = @NotesID";
+                    MySqlCommand insertTrashCommand = new MySqlCommand(insertTrashQuery, connection);
+                    insertTrashCommand.Parameters.AddWithValue("@NotesID", note.NotesID);
+                    insertTrashCommand.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error moving note to trash: {ex.Message}");
+            }
+        }
+
+        private void DeleteNoteFromDatabase(Note note)
+        {
+            // Instantiate DatabaseManager to access the connection string
+            DatabaseManager dbManager = new DatabaseManager();
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString))
+                {
+                    connection.Open();
+
+                    // Prepare the SQL DELETE query to remove note from notes table
+                    string deleteNoteQuery = "DELETE FROM notes WHERE NotesID = @NotesID";
+                    MySqlCommand deleteNoteCommand = new MySqlCommand(deleteNoteQuery, connection);
+                    deleteNoteCommand.Parameters.AddWithValue("@NotesID", note.NotesID);
+                    deleteNoteCommand.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting note from notes table: {ex.Message}");
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(); // Close the window when Cancel button is clicked
+        }
     }
 }

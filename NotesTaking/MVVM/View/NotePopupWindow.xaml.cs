@@ -13,9 +13,13 @@ namespace NotesTaking.MVVM.View
     /// </summary>
     public partial class NotePopupWindow : Window
     {
+
+        private readonly NoteViewModel _noteViewModel;
         public NotePopupWindow()
         {
             InitializeComponent();
+            _noteViewModel = new NoteViewModel();
+            DataContext = _noteViewModel;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -89,7 +93,83 @@ namespace NotesTaking.MVVM.View
 
         private void ArchiveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add your archive button logic here if needed
+            Button archiveButton = sender as Button;
+            if (archiveButton != null)
+            {
+                Note noteToArchive = archiveButton.DataContext as Note;
+                if (noteToArchive != null)
+                {
+                    try
+                    {
+                        // Move note to archive
+                        ArchiveNote(noteToArchive);
+
+                        // Delete note from notes table
+                        DeleteNoteFromNotes(noteToArchive);
+
+                        MessageBox.Show("Note archived successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // Close the window after archiving
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error archiving note: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
+
+
+        private void ArchiveNote(Note note)
+        {
+            // Instantiate DatabaseManager to access the connection string
+            DatabaseManager dbManager = new DatabaseManager();
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString))
+                {
+                    connection.Open();
+
+                    // Prepare the SQL INSERT query to move note to archive table
+                    string insertArchiveQuery = "INSERT INTO archive (AccountID, NotesID, ArchivedDate, ArchiveTitle, ArchiveContent) " +
+                                                "SELECT AccountID, NotesID, NOW(), NoteTitle, NoteContent FROM notes WHERE NotesID = @NotesID";
+                    MySqlCommand insertArchiveCommand = new MySqlCommand(insertArchiveQuery, connection);
+                    insertArchiveCommand.Parameters.AddWithValue("@NotesID", note.NotesID);
+                    insertArchiveCommand.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error archiving note: {ex.Message}");
+            }
+        }
+
+        private void DeleteNoteFromNotes(Note note)
+        {
+            // Instantiate DatabaseManager to access the connection string
+            DatabaseManager dbManager = new DatabaseManager();
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString))
+                {
+                    connection.Open();
+
+                    // Prepare the SQL DELETE query to remove note from notes table
+                    string deleteNoteQuery = "DELETE FROM notes WHERE NotesID = @NotesID";
+                    MySqlCommand deleteNoteCommand = new MySqlCommand(deleteNoteQuery, connection);
+                    deleteNoteCommand.Parameters.AddWithValue("@NotesID", note.NotesID);
+                    deleteNoteCommand.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting note from notes table: {ex.Message}");
+            }
+        }
+
+
     }
 }

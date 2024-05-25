@@ -124,11 +124,14 @@ namespace NotesTaking
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            // Navigate back to the login window (MainWindow)
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close(); // Close the current dashboard window
+            // Create an instance of the LogoutConfirmationWindow
+            LogoutConfirmationWindow logoutWindow = new LogoutConfirmationWindow();
+
+            // Show the window as a dialog (blocking the main window until it's closed)
+            logoutWindow.ShowDialog();
         }
+
+
 
         private void Dashboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

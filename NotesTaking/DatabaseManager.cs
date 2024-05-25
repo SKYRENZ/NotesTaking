@@ -23,8 +23,7 @@ namespace NotesTaking
                 {
                     connection.Open();
 
-                    // Ensure that the query respects case sensitivity by default
-                    string query = "SELECT COUNT(*) FROM account WHERE AccountUser = @username AND BINARY AccountPass = @password";
+                    string query = "SELECT COUNT(*) FROM account WHERE AccountUser = @username AND AccountPass = @password";
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", password);
@@ -34,14 +33,12 @@ namespace NotesTaking
                     return count > 0;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log or handle the exception appropriately
-                Console.WriteLine($"Exception: {ex.Message}");
                 return false;
             }
         }
-
 
         public bool InsertNote(int accountId, string noteTitle, string noteContent)
         {

@@ -25,6 +25,7 @@
                     <TextBox Text="{Binding NoteContent, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" BorderThickness="0" Background="white" Margin="5" AcceptsReturn="True"/>
                 </ScrollViewer>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+
                     <Button x:Name="SaveButton" Margin="5" Click="SaveButton_Click" Width="80">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="32" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-making-notes-32.png" Stretch="Fill" Width="32"/>
@@ -49,6 +50,8 @@
                             <Label Content="Cancel" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
+                    <Button Content="Unarchive" Visibility="{Binding IsArchived, Converter={StaticResource BoolToVisibilityConverter}}" Click="UnarchiveButton_Click"/>
+
                 </StackPanel>
 
 

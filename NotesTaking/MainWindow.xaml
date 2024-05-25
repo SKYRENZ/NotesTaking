@@ -112,7 +112,16 @@
                    FontFamily="Segoe"
                    Foreground="WhiteSmoke"
                    Opacity=".4 "
-                   MouseLeftButtonDown="btnCreateAcc" Cursor="Hand"/>
+/>
+            <Label x:Name="CreateAcc" 
+                   Grid.Column="1" 
+                   Content="Don't have an account?" 
+                   Margin="303,556,10,0" Grid.Row="1" 
+                   VerticalAlignment="Top"
+                   FontFamily="Segoe"
+                   Foreground="WhiteSmoke"
+                   Opacity=".4"
+                   FontWeight="SemiBold" Cursor="Hand" MouseLeftButtonDown="CreateAcc_MouseLeftButtonDown"/>
         </Grid>
     </Border>
 

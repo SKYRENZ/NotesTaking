@@ -38,7 +38,10 @@ namespace NotesTaking
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
         }
 
         private void btnClose_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -90,11 +93,13 @@ namespace NotesTaking
         }
 
 
-        private void btnCreateAcc(object sender, MouseButtonEventArgs e)
+        private void CreateAcc_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            MVVM.View.CreateAccPopUp createAccPopUp = new MVVM.View.CreateAccPopUp();
+            createAccPopUp.Owner = this;
+            createAccPopUp.ShowDialog();
         }
-        
+
         private void btnMinimize_MouseEnter(object sender, MouseEventArgs e)
         {
             //Changes the color of minimize button when hovered

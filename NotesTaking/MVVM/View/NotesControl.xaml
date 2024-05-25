@@ -62,19 +62,17 @@
         </StackPanel>
 
         <!-- Notes Display Area with ScrollViewer -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="NotesItemsControl" Margin="0,10,0,0" ItemsSource="{Binding Notes}" Width="533">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <view:NoteContainer/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <Border Background="#343434" CornerRadius="12" Grid.RowSpan="2"/>
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
+                <ItemsControl x:Name="NotesItemsControl" Margin="0,10,0,0" ItemsSource="{Binding Notes}" Width="533">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <view:NoteContainer/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        <Button Content="Create Note" HorizontalAlignment="Center" Height="30" Width="120" Click="CreateNoteButton_Click" Margin="0,10"/>
     </Grid>
 </UserControl>

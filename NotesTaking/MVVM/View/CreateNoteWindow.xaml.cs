@@ -110,10 +110,7 @@ namespace NotesTaking.MVVM.View
             Close();
         }
 
-        private void txtContent_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
+       
         private void CreateNoteButton_Click(object sender, RoutedEventArgs e)
         {
             CreateNoteWindow createNoteWindow = new CreateNoteWindow();

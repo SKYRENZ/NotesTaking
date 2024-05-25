@@ -166,6 +166,8 @@ namespace NotesTaking.MVVM.View
             {
                 throw new Exception($"Error archiving note: {ex.Message}");
             }
+            // Set IsArchived to true
+            note.IsArchived = true;
         }
 
         private void DeleteNoteFromNotes(Note note)
@@ -245,5 +247,68 @@ namespace NotesTaking.MVVM.View
         {
             this.Close(); // Close the window when Cancel button is clicked
         }
+        private void UnarchiveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button unarchiveButton = sender as Button;
+            if (unarchiveButton != null)
+            {
+                Note noteToUnarchive = unarchiveButton.DataContext as Note;
+                if (noteToUnarchive != null)
+                {
+                    try
+                    {
+                        // Move note back to the notes control
+                        UnarchiveNote(noteToUnarchive);
+
+                        // Optionally, you can refresh the UI or perform any other necessary actions
+
+                        MessageBox.Show("Note unarchived successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // Close the window after unarchiving
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error unarchiving note: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
+        private void UnarchiveNote(Note note)
+        {
+            // Instantiate DatabaseManager to access the connection string
+            DatabaseManager dbManager = new DatabaseManager();
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString))
+                {
+                    connection.Open();
+
+                    // Prepare the SQL INSERT query to move note back to notes table
+                    string insertNoteQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) " +
+                                             "SELECT AccountID, @NoteTitle, @NoteContent FROM archive WHERE ArchiveID = @ArchiveID";
+                    MySqlCommand insertNoteCommand = new MySqlCommand(insertNoteQuery, connection);
+                    insertNoteCommand.Parameters.AddWithValue("@NoteTitle", note.NoteTitle);
+                    insertNoteCommand.Parameters.AddWithValue("@NoteContent", note.NoteContent);
+                    insertNoteCommand.Parameters.AddWithValue("@ArchiveID", note.NotesID);
+                    insertNoteCommand.ExecuteNonQuery();
+
+                    // Delete the note from the archive table
+                    string deleteArchiveQuery = "DELETE FROM archive WHERE ArchiveID = @ArchiveID";
+                    MySqlCommand deleteArchiveCommand = new MySqlCommand(deleteArchiveQuery, connection);
+                    deleteArchiveCommand.Parameters.AddWithValue("@ArchiveID", note.NotesID);
+                    deleteArchiveCommand.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error unarchiving note: {ex.Message}");
+            }
+            // Set IsArchived to false
+            note.IsArchived = false;
+        }
+
     }
 }

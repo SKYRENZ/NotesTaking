@@ -122,6 +122,14 @@ namespace NotesTaking
             HighlightButton(sender as Button);
         }
 
+        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigate back to the login window (MainWindow)
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close(); // Close the current dashboard window
+        }
+
         private void Dashboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();

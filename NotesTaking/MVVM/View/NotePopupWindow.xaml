@@ -47,11 +47,15 @@
                     <Button x:Name="CancelButton" Margin="5" Click="CancelButton_Click" Width="80">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="26" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-cancel-24.png" Stretch="Fill" Width="28"/>
-                            <Label Content="Cancel" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <Label Content="Cancel" VerticalAlignment="Center" Margin="5,0,0,0" RenderTransformOrigin="0,0.381"/>
                         </StackPanel>
                     </Button>
-                    <Button Content="Unarchive" Visibility="{Binding IsArchived, Converter={StaticResource BoolToVisibilityConverter}}" Click="UnarchiveButton_Click"/>
-
+                    <Button x:Name="UnarchiveButton" Margin="5" Click="UnarchiveButton_Click" Width="92" Visibility="{Binding IsArchived, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="24" Source="C:\Users\chris\Source\Repos\NotesTaking\NotesTaking\Images\unarchive.png" Stretch="Fill" Width="24"/>
+                            <Label Content="Unarchive"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
 
 

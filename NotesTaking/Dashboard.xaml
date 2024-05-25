@@ -162,7 +162,7 @@
                             </Style>
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
-                            <Image Source="D:\Downloads/logogoout.png" Height="26" Width="36"></Image>
+                            <Image Source="C:\Users\chris\Source\Repos\NotesTaking\NotesTaking\Images\logogoout.png" Height="26" Width="36"></Image>
                             <Label Foreground="#008E70" Content="Log Out" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="70"/>
                         </DockPanel>
                     </Button>

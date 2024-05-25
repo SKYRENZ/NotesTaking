@@ -9,8 +9,8 @@ namespace NotesTaking.MVVM.View
     {
         public NoteContainer()
         {
-        
-           
+        InitializeComponent();
+
         }
 
         private void NoteContainer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -4,7 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="334" d:DesignWidth="468.4" MouseLeftButtonDown="NoteContainer_MouseLeftButtonDown" Cursor="Hand">
+             d:DesignHeight="334" d:DesignWidth="450" MouseLeftButtonDown="NoteContainer_MouseLeftButtonDown" Cursor="Hand">
     
     <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" CornerRadius="5" Background="White" >
         <Grid>
@@ -19,7 +19,7 @@
 
             <!-- Note Content TextBox with ScrollViewer -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <TextBox Text="{Binding NoteContent}" TextWrapping="Wrap" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True"/>
+                <TextBox Text="{Binding NoteContent}" TextWrapping="NoWrap" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True"/>
             </ScrollViewer>
 
             <!-- Panel for common use buttons -->

@@ -9,9 +9,26 @@ namespace NotesTaking.MVVM.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool isVisible)
+            if (value is bool boolValue)
             {
-                return isVisible ? Visibility.Visible : Visibility.Collapsed;
+                bool inverse = false;
+                if (parameter != null && parameter is string)
+                {
+                    string param = (string)parameter;
+                    if (param.Equals("Inverse", StringComparison.OrdinalIgnoreCase))
+                    {
+                        inverse = true;
+                    }
+                }
+
+                if (inverse)
+                {
+                    return boolValue ? Visibility.Collapsed : Visibility.Visible;
+                }
+                else
+                {
+                    return boolValue ? Visibility.Visible : Visibility.Collapsed;
+                }
             }
             return Visibility.Collapsed;
         }

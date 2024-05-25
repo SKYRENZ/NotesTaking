@@ -151,16 +151,19 @@
                         </DockPanel>
                     </Button>
                     <!-- Log Out Button -->
-                    
-                    <Button Grid.Row="8" Height="50" Background="#28282b" FontSize="10" FontWeight="Bold" BorderThickness="0" Click="btnLogOut_Click" Margin="14,25,12,24">
+                    <Button Grid.Row="8" Height="50" Background="#28282b" FontSize="10" FontWeight="Bold" BorderThickness="0" Click="btnLogOut_Click">
+                        <!-- Add Tooltip -->
+                        <Button.ToolTip>
+                            <ToolTip Content="Log Out"/>
+                        </Button.ToolTip>
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
                             </Style>
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
-                            <Image Source="D:\Downloads/logogoout.png" Height="26" Width="36"> </Image>
-                            <Label Foreground="#008E70" Content="Log Out" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="68" RenderTransformOrigin="0.693,0.536"/>
+                            <Image Source="D:\Downloads/logogoout.png" Height="26" Width="36"></Image>
+                            <Label Foreground="#008E70" Content="Log Out" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="70"/>
                         </DockPanel>
                     </Button>
                 </Grid>

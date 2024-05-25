@@ -9,7 +9,7 @@ namespace NotesTaking.MVVM.View
     {
         public NoteContainer()
         {
-            InitializeComponent();
+        
            
         }
 

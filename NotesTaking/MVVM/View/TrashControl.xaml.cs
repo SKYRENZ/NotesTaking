@@ -15,9 +15,9 @@ namespace NotesTaking.MVVM.View
 
         public TrashControl()
         {
-            InitializeComponent();
+           
             TrashedNotes = new ObservableCollection<Note>();
-            TrashItemsControl.ItemsSource = TrashedNotes;
+           
 
             dbManager = new DatabaseManager();
             int accountId = dbManager.GetLoggedInAccountId(UserSession.LoggedInUsername);
@@ -66,7 +66,7 @@ namespace NotesTaking.MVVM.View
             }
 
             TrashedNotes = trashedNotes;
-            TrashItemsControl.ItemsSource = TrashedNotes;
+            
         }
     }
 }

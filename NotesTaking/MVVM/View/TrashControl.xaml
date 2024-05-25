@@ -15,13 +15,28 @@
         <TextBlock Text="Trashed Notes" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="TrashItemsControl" ItemsSource="{Binding TrashedNotes}" Width="533">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <view:NoteContainer/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <WrapPanel Orientation="Horizontal" ItemWidth="200" ItemHeight="300" Margin="10">
+                <ItemsControl x:Name="TrashItemsControl" ItemsSource="{Binding TrashedNotes}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <view:NoteContainer>
+                                <view:NoteContainer.Style>
+                                    <Style TargetType="view:NoteContainer">
+                                        <Setter Property="Margin" Value="10"/>
+                                        <Setter Property="Width" Value="200"/>
+                                        <Setter Property="Height" Value="200"/>
+                                    </Style>
+                                </view:NoteContainer.Style>
+                            </view:NoteContainer>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </WrapPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

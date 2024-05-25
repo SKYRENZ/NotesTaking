@@ -18,11 +18,11 @@
                 </Grid.RowDefinitions>
 
                 <!-- Editable Title TextBox -->
-                <TextBox Grid.Row="0" Text="{Binding NoteTitle, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" BorderThickness="0" Background="White" Margin="5,0,5,5" VerticalAlignment="Bottom" IsEnabled="False" />
+                <TextBox Grid.Row="0" Text="{Binding NoteTitle}" FontWeight="Bold" BorderThickness="0" Background="White" Margin="5,0,5,5" VerticalAlignment="Bottom" IsEnabled="False" />
 
                 <!-- Editable Note Content TextBox with ScrollViewer -->
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23">
-                    <TextBox Text="{Binding NoteContent, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" BorderThickness="0" Background="white" Margin="5" AcceptsReturn="True" IsEnabled="False"/>
+                    <TextBox Text="{Binding NoteContent}" TextWrapping="Wrap" BorderThickness="0" Background="white" Margin="5" AcceptsReturn="True" IsEnabled="False"/>
                 </ScrollViewer>
 
                 <!-- Buttons for Restore, Delete, and Cancel -->

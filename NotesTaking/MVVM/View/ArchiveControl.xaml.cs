@@ -53,7 +53,8 @@ namespace NotesTaking.MVVM.View
                             {
                                 NotesID = reader.GetInt32("ArchiveID"),
                                 NoteTitle = reader.GetString("ArchiveTitle"),
-                                NoteContent = reader.GetString("ArchiveContent")
+                                NoteContent = reader.GetString("ArchiveContent"),
+                                IsArchived = true // Set IsArchived to true for archived notes
                             };
                             archivedNotes.Add(note);
                         }
@@ -68,5 +69,6 @@ namespace NotesTaking.MVVM.View
             ArchivedNotes = archivedNotes;
             ArchiveItemsControl.ItemsSource = ArchivedNotes;
         }
+
     }
 }

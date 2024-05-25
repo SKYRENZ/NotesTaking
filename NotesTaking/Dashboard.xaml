@@ -147,9 +147,20 @@
                         <DockPanel VerticalAlignment="Center">
                             <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\trash.png" Height="30" Width="24" Margin="2"/>
                             <Label Foreground="#008E70" Content="Trash" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="50" Height="30"/>
+                            
                         </DockPanel>
                     </Button>
-
+                    <!-- Log Out Button -->
+                    <Button Grid.Row="8" Height="50" Background="#28282b" FontSize="10" FontWeight="Bold" BorderThickness="0" Click="btnLogOut_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Foreground="#008E70" Content="Log Out" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="70"/>
+                        </DockPanel>
+                    </Button>
                 </Grid>
             </Border>
             <Ellipse x:Name="btnClose" Grid.Column="1" Margin="0,10,10,640" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>

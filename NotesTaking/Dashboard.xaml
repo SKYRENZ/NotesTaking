@@ -151,7 +151,7 @@
                         </DockPanel>
                     </Button>
                     <!-- Log Out Button -->
-                    <Button Grid.Row="8" Height="50" Background="#28282b" FontSize="10" FontWeight="Bold" BorderThickness="0" Click="btnLogOut_Click">
+                    <Button Grid.Row="8" Height="50" Background="#28282b" FontSize="10" FontWeight="Bold" BorderThickness="0" Click="btnLogOut_Click" Margin="12,25,12,24">
                         <!-- Add Tooltip -->
                         <Button.ToolTip>
                             <ToolTip Content="Log Out"/>

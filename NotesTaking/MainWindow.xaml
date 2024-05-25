@@ -31,19 +31,9 @@
                     <DropShadowBitmapEffect Color="Black" Direction="-40" ShadowDepth="15" Softness="100" Opacity=".45" />
                 </Rectangle.BitmapEffect>
             </Rectangle>
-            <Grid Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Ellipse x:Name="btnMinimize" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
-                        <!--<Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-minimize-24.png" Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                    </Grid>
-                    <Grid Margin="10,0,0,0">
-                        <Ellipse x:Name="btnClose" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Height="30" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"> </Ellipse>
-                        <!--<Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-close-24.png" Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                    </Grid>
-                </StackPanel>
-            </Grid>
-            <Image Margin="133,38,133,368" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\Extra4.png" Grid.Column="1" Grid.Row="1"/>
+            <Ellipse x:Name="btnClose" Grid.Column="2" Margin="0,0,10,0" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>
+            <Ellipse x:Name="btnMinimize" Grid.Column="2" Margin="0,0,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
+            <Image Margin="55,0,55,251" Source="C:\Users\Renz\Source\Repos\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
             <Button x:Name="btnSignIn" 
                     Background="Transparent"
                     Grid.Column="1" 

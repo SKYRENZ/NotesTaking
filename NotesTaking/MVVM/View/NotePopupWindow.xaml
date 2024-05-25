@@ -20,14 +20,34 @@
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23">
                     <TextBox Text="{Binding NoteContent, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" BorderThickness="0" Background="white" Margin="5" AcceptsReturn="True"/>
                 </ScrollViewer>
-
-                <!-- Buttons for Save, Delete, and Archive -->
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                    <Button x:Name="SaveButton" Content="Save" Margin="5" Click="SaveButton_Click"/>
-                    <Button x:Name="DeleteButton" Content="Delete" Margin="5" Click="DeleteButton_Click"/>
-                    <Button x:Name="ArchiveButton" Content="Archive" Margin="5" Click="ArchiveButton_Click"/>
-                    <Button x:Name="CancelButton" Content="Cancel" Margin="5" Click="CancelButton_Click"/>
+                    <Button x:Name="SaveButton" Margin="5" Click="SaveButton_Click" Width="80">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="32" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-making-notes-32.png" Stretch="Fill" Width="32"/>
+                            <Label Content="Save" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="DeleteButton" Margin="5" Click="DeleteButton_Click" Width="80">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="24" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-delete-24.png" Stretch="Fill" Width="24"/>
+                            <Label Content="Delete" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="ArchiveButton" Margin="5" Click="ArchiveButton_Click" Width="80">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="24" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-archive-24.png" Stretch="Fill" Width="24"/>
+                            <Label Content="Archive" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="CancelButton" Margin="5" Click="CancelButton_Click" Width="80">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="26" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-cancel-24.png" Stretch="Fill" Width="28"/>
+                            <Label Content="Cancel" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
+
+
 
                 <!-- Close Button Image -->
             </Grid>

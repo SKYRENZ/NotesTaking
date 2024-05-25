@@ -52,6 +52,7 @@ namespace NotesTaking.MVVM.View
                         }
                     }
                 }
+
             }
    
         }

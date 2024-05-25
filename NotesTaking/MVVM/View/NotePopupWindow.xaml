@@ -32,13 +32,14 @@
                             <Label Content="Save" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="DeleteButton" Margin="5" Click="DeleteButton_Click" Width="80">
+                    <Button x:Name="DeleteButton" Margin="5" Click="DeleteButton_Click" Width="80" Visibility="{Binding DeleteButtonVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="24" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-delete-24.png" Stretch="Fill" Width="24"/>
                             <Label Content="Delete" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-           <Button x:Name="ArchiveButton" Margin="5" Click="ArchiveButton_Click" Width="80" Visibility="{Binding IsArchived, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Inverse}">
+
+                    <Button x:Name="ArchiveButton" Margin="5" Click="ArchiveButton_Click" Width="80" Visibility="{Binding IsArchived, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Inverse}">
     <StackPanel Orientation="Horizontal">
         <Image Height="24" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-archive-24.png" Stretch="Fill" Width="24"/>
         <Label Content="Archive" VerticalAlignment="Center" Margin="5,0,0,0"/>

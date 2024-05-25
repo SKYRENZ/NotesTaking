@@ -42,5 +42,17 @@ namespace NotesTaking.MVVM.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private bool _isDeleteButtonVisible;
+
+        public bool IsDeleteButtonVisible
+        {
+            get => _isDeleteButtonVisible;
+            set
+            {
+                _isDeleteButtonVisible = value;
+                OnPropertyChanged(nameof(IsDeleteButtonVisible));
+            }
+        }           
     }
 }

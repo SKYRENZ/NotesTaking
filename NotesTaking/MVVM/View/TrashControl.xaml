@@ -15,10 +15,10 @@
         <TextBlock Text="Trashed Notes" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="TrashItemsControl" ItemsSource="{Binding TrashedNotes}" Width="533">
+            <ItemsControl ItemsSource="{Binding TrashNotes}" Width="533">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <view:NoteContainer/>
+                        <view:NewTrashContainer/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

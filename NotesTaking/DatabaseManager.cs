@@ -137,6 +137,104 @@ namespace NotesTaking
 
             return notes;
         }
+
+        public bool RestoreNoteFromTrash(int accountId, int noteId)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                {
+                    connection.Open();
+
+                    // Begin a transaction
+                    using (MySqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        // Retrieve the note data from the trash table
+                        string retrieveQuery = "SELECT TrashTitle, TrashContent FROM trash WHERE TrashID = @TrashID";
+                        MySqlCommand retrieveCommand = new MySqlCommand(retrieveQuery, connection, transaction);
+                        retrieveCommand.Parameters.AddWithValue("@TrashID", noteId);
+
+                        string noteTitle = "";
+                        string noteContent = "";
+
+                        using (MySqlDataReader reader = retrieveCommand.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                noteTitle = reader.GetString("TrashTitle");
+                                noteContent = reader.GetString("TrashContent");
+                            }
+                            else
+                            {
+                                // Note not found in trash
+                                transaction.Rollback();
+                                return false;
+                            }
+                        }
+
+                        // Insert the note data into the notes table
+                        string insertQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) VALUES (@accountId, @noteTitle, @noteContent)";
+                        MySqlCommand insertCommand = new MySqlCommand(insertQuery, connection, transaction);
+                        insertCommand.Parameters.AddWithValue("@accountId", accountId);
+                        insertCommand.Parameters.AddWithValue("@noteTitle", noteTitle);
+                        insertCommand.Parameters.AddWithValue("@noteContent", noteContent);
+
+                        int rowsInserted = insertCommand.ExecuteNonQuery();
+
+                        if (rowsInserted > 0)
+                        {
+                            // Delete the note data from the trash table
+                            string deleteQuery = "DELETE FROM trash WHERE TrashID = @TrashID";
+                            MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection, transaction);
+                            deleteCommand.Parameters.AddWithValue("@TrashID", noteId);
+                            int rowsDeleted = deleteCommand.ExecuteNonQuery();
+
+                            if (rowsDeleted > 0)
+                            {
+                                // Commit the transaction if both operations succeed
+                                transaction.Commit();
+                                return true;
+                            }
+                        }
+
+                        // Rollback the transaction if any operation fails
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                // Add additional error handling/logging as needed
+            }
+
+            return false;
+        }
+
+        public bool DeleteNoteFromTrash(int accountId, int noteId)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                {
+                    connection.Open();
+
+                    string query = "DELETE FROM trash WHERE AccountID = @AccountId AND TrashID = @NoteId";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@AccountId", accountId);
+                    command.Parameters.AddWithValue("@NoteId", noteId);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                Console.WriteLine($"Exception: {ex.Message}");
+                return false;
+            }
+        }
     }
 }
-

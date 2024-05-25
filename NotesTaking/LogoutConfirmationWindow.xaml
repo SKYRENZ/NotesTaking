@@ -10,33 +10,52 @@
     <Border Background="#28282b"
             BorderBrush="#008E70"
             BorderThickness="2"
-            CornerRadius="20">  
-    <Grid>
-        <TextBlock Text="Are you sure you want to log out?" 
-                   Foreground="White" 
-                   FontSize="16"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,10">
-            <Button Content="Yes" 
-                    Background="#008E70" 
-                    Foreground="White" 
-                    FontSize="14" 
-                    FontWeight="Bold"
-                    Width="100"
-                    Height="40"
-                    Margin="10"
-                    Click="Yes_Click"/>
-            <Button Content="No" 
-                    Background="#C7282D" 
-                    Foreground="White" 
-                    FontSize="14" 
-                    FontWeight="Bold"
-                    Width="100"
-                    Height="40"
-                    Margin="10"
-                    Click="No_Click"/>
-        </StackPanel>
-    </Grid>
+            CornerRadius="20">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5" Opacity="0.5"/>
+        </Border.Effect>
+        <Border CornerRadius="20">
+            <Grid>
+                <Border CornerRadius="20" Background="#28282b">
+                    <!-- Apply CornerRadius to the inner Border -->
+                    <TextBlock Text="Are you sure you want to log out?" 
+                               Foreground="White" 
+                               FontSize="16"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Bottom" 
+                            Margin="0,20,0,10">
+                    <Button Content="Yes" 
+                            Background="#008E70" 
+                            Foreground="White" 
+                            FontSize="14" 
+                            FontWeight="Bold"
+                            Width="100"
+                            Height="40"
+                            Margin="10"
+                            Click="Yes_Click">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5" Opacity="0.5"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button Content="No" 
+                            Background="#C7282D" 
+                            Foreground="White" 
+                            FontSize="14" 
+                            FontWeight="Bold"
+                            Width="100"
+                            Height="40"
+                            Margin="10"
+                            Click="No_Click">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="24" ShadowDepth="5" Opacity="60"/>
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Border>
 </Window>

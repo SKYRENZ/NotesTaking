@@ -14,7 +14,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Editable Title TextBox -->
-                <TextBox Grid.Row="0" Text="{Binding NoteTitle, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" BorderThickness="0" Background="White" Margin="5,0,5,5" VerticalAlignment="Bottom" />
+                <TextBox Grid.Row="0" Text="{Binding NoteTitle, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" BorderThickness="0" Background="Gray" Margin="5,0,5,5" VerticalAlignment="Bottom" />
 
                 <!-- Editable Note Content TextBox with ScrollViewer -->
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23">

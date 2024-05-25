@@ -15,11 +15,11 @@
             </Grid.RowDefinitions>
 
             <!-- Title TextBox -->
-            <TextBox Grid.Row="0" Text="{Binding NoteTitle}" FontWeight="Bold" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True" />
+            <TextBox Grid.Row="0" Text="{Binding NoteTitle}" FontWeight="Bold" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True"/>
 
             <!-- Note Content TextBox with ScrollViewer -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <TextBox Text="{Binding NoteContent}" TextWrapping="Wrap" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True" />
+                <TextBox Text="{Binding NoteContent}" TextWrapping="Wrap" BorderThickness="0" Background="Transparent" Margin="5" IsReadOnly="True"/>
             </ScrollViewer>
 
             <!-- Panel for common use buttons -->

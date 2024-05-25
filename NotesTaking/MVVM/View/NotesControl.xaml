@@ -12,7 +12,66 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+<<<<<<< Updated upstream
         <!-- Create Note Button -->
+=======
+<<<<<<< HEAD
+        <!-- Background Border -->
+        <Border Background="#404040" CornerRadius="12" Grid.RowSpan="2">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="10" Opacity="0.7"/>
+            </Border.Effect>
+        </Border>
+
+        <!-- Create Note Button (Top Center) -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10,10,0,0">
+            <Button x:Name="CreateNoteTopButton"
+                    Width="200"
+                    Height="40"
+                    Background="White"
+                    Foreground="Black"
+                    BorderBrush="#CCCCCC"
+                    BorderThickness="1"
+                    Click="CreateNoteButton_Click"
+                    ToolTipService.ToolTip="Create Note"
+                    FontSize="14">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="buttonBackground" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#E0E0E0" Duration="0:0:0.1"/>
+                                            <ThicknessAnimation Storyboard.TargetName="buttonBorder" Storyboard.TargetProperty="BorderThickness" To="2" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="buttonBackground" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#D6D6D6" Duration="0:0:0.1"/>
+                                            <ThicknessAnimation Storyboard.TargetName="buttonBorder" Storyboard.TargetProperty="BorderThickness" To="2" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="buttonBorder" CornerRadius="20" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <Border x:Name="buttonBackground" CornerRadius="20" Background="{TemplateBinding Background}" BorderThickness="0">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Text="+" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Create Note" FontSize="16" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+=======
+        <!-- Create Note Button -->
+>>>>>>> 441c29fb1449f4218ed669cbfe1e70849827b761
+>>>>>>> Stashed changes
 
         <!-- Notes Display Area with ScrollViewer -->
         <Border Background="#343434" CornerRadius="12" Grid.RowSpan="2"/>

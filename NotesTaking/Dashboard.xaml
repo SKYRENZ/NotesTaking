@@ -85,12 +85,12 @@
                         </Button.Style>
                         <DockPanel VerticalAlignment="Top">
                             <Label Foreground="#008E70" Content="Notes" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="70" Height="43" Background="Transparent"/>
-                            <Image Height="30" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\Notes.png" Stretch="Fill" Width="30" Margin="10,0,0,0"/>
+                            <Image Height="30" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\Notes.png" Stretch="Fill" Width="30" Margin="10,0,0,0"/>
                         </DockPanel>
                     </Button>
 
 
-                    <Image Margin="28,32,28,32" Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\notabenelogocircle.png" Stretch="Fill"/>
+                    <Image Margin="28,32,28,32" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\notabenelogocircle.png" Stretch="Fill"/>
                     <!--Archive Button-->
                     <Button x:Name="btnArchive" 
                         Grid.Row="3" 
@@ -108,7 +108,7 @@
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
                             <Label Foreground="#008E70" Content="Archive" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="66"/>
-                            <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\Archive.png" Stretch="Fill" Margin="10,0,5,0" Height="25" Width="22"/>
+                            <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\Archive.png" Stretch="Fill" Margin="10,0,5,0" Height="25" Width="22"/>
                         </DockPanel>
                     </Button>
 
@@ -127,7 +127,7 @@
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
                             <Label Foreground="#008E70" Content="Reminders" FontFamily="Segoe" FontSize="14" DockPanel.Dock="Right" Width="80" Height="26"/>
-                            <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\Reminder.png" Height="30" Width="24" Margin="2"/>
+                            <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\Reminder.png" Height="30" Width="24" Margin="2"/>
                         </DockPanel>
                     </Button>
                     <Button x:Name="btnTrash" 
@@ -145,13 +145,13 @@
                             </Style>
                         </Button.Resources>
                         <DockPanel VerticalAlignment="Center">
-                            <Image Source="C:\Users\Chewy\Documents\GitHub\NotesTaking\NotesTaking\Images\trash.png" Height="30" Width="24" Margin="2"/>
+                            <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\trash.png" Height="30" Width="24" Margin="2"/>
                             <Label Foreground="#008E70" Content="Trash" FontFamily="Segoe" FontSize="15" DockPanel.Dock="Right" Width="50" Height="30"/>
                      
                         </DockPanel>
                     </Button>
                     <!-- Log Out Button -->
-                    <Button Grid.Row="8" Height="50" Background="#28282b" FontSize="10" FontWeight="Bold" BorderThickness="0" Click="btnLogOut_Click">
+                    <Button Grid.Row="8" Height="50" Background="#28282b" FontSize="10" FontWeight="Bold" BorderThickness="0" Click="btnLogOut_Click" Margin="12,25,12,24">
                         <!-- Add Tooltip -->
                         <Button.ToolTip>
                             <ToolTip Content="Log Out"/>
@@ -168,8 +168,18 @@
                     </Button>
                 </Grid>
             </Border>
-            <Ellipse x:Name="btnClose" Grid.Column="1" Margin="0,10,10,640" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave"/>
-            <Ellipse x:Name="btnMinimize" Grid.Column="1" Margin="0,10,45,0" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave"/>
+            <Grid Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,640" MouseLeftButtonDown="btnClose_MouseLeftButtonDown" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave">
+                <Ellipse x:Name="btnClose" Fill="#FF343A" StrokeThickness="4" Stroke="#C7282D" Width="30" Height="30"/>
+                <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-close-24.png" Width="20" Height="20" Stretch="Uniform" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <Grid Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,45,0" MouseLeftButtonDown="btnMinimize_MouseLeftButtonDown" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave">
+                <Ellipse x:Name="btnMinimize" Fill="#FFBE45" StrokeThickness="4" Stroke="#C79436" Width="30" Height="30"/>
+                <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-minimize-24.png" Width="20" Height="20" Stretch="Uniform" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+
+
             <!--Main Content menu-->
             <!-- ControlArea -->
             <ContentControl x:Name="contentArea" Grid.Column="1" Margin="10,60,20,20">

@@ -6,13 +6,46 @@
              xmlns:view="clr-namespace:NotesTaking.MVVM.View"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!-- Style for Restore and Delete Buttons -->
+        <Style TargetType="Button" x:Key="RestoreDeleteButtonStyle">
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="BorderBrush" Value="#008E70"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#343434"/>
+                                <!-- Slightly darker color when hovered -->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Trashed Notes" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10"/>
+        <TextBlock Text="Trashed Notes" FontSize="24" FontWeight="Bold" Foreground="WhiteSmoke" HorizontalAlignment="Center" Margin="0,10"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="TrashItemsControl" ItemsSource="{Binding TrashedNotes}" Width="533">
@@ -25,9 +58,9 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding NoteTitle}" FontWeight="Bold" Margin="5"/>
-                                <Button Content="Restore" Grid.Column="1" Margin="5" Click="RestoreButton_Click"/>
-                                <Button Content="Delete" Grid.Column="2" Margin="5" Click="DeleteButton_Click"/>
+                                <TextBlock Text="{Binding NoteTitle}" FontWeight="Bold" Margin="5" Foreground="WhiteSmoke"/>
+                                <Button Content="Restore" Grid.Column="1" Margin="5" Width="60" Click="RestoreButton_Click" Style="{StaticResource RestoreDeleteButtonStyle}"/>
+                                <Button Content="Delete" Grid.Column="2" Margin="5" Width="60" Click="DeleteButton_Click" Style="{StaticResource RestoreDeleteButtonStyle}"/>
                             </Grid>
                             <Separator Margin="5,0"/>
                         </StackPanel>

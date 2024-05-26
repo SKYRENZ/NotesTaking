@@ -29,6 +29,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
 
     <Border Background="#80000000" CornerRadius="12">
@@ -77,7 +78,24 @@
                         Background="Transparent"
                         BorderBrush="#008E70"
                         VerticalContentAlignment="Center"
-                        BorderThickness="0,0,0,2.5"/>
+                        BorderThickness="0,0,0,2.5">
+
+                        <PasswordBox.ToolTip>
+                            <ToolTip Background="WhiteSmoke" BorderBrush="#008E70" Padding="7">
+                                <ToolTip.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </ToolTip.Resources>
+                                <StackPanel>
+                                    <TextBlock Text="• Must be 8 - 24 characters in length" Foreground="#121212" FontSize="12" FontFamily="Segoe"/>
+                                    <TextBlock Text="• Must contain 1 uppercase letter" Foreground="#121212" FontSize="12" FontFamily="Segoe"/>
+                                    <TextBlock Text="• Must contain 1 numeric value" Foreground="#121212" FontSize="12" FontFamily="Segoe"/>
+                                    <TextBlock Text="• Must contain 1 special character" Foreground="#121212" FontSize="12" FontFamily="Segoe"/>
+                                </StackPanel>
+                            </ToolTip>
+                        </PasswordBox.ToolTip>
+                    </PasswordBox>
 
                     <TextBox x:Name="crtPasswordText"
                         Width="248"
@@ -91,9 +109,18 @@
                         Visibility="Collapsed"/>
 
                     <Button x:Name="UnhideButton" Content="👁" 
-                        Width="30" Height="30"
-                        VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
-                        Click="UnhideButton_Click"/>
+                        Background="#008E70"
+                        BorderThickness="0"
+                        Foreground="#343434"
+                        Width="22" Height="22"
+                        VerticalAlignment="Center" HorizontalAlignment="Left" Margin="224,0,0,0"
+                        Click="UnhideButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="14"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </Grid>
 
                 <TextBlock Text="Confirm Password" 
@@ -126,9 +153,18 @@
                         Visibility="Collapsed"/>
 
                     <Button x:Name="UnhideButton_Copy" Content="👁" 
-                        Width="30" Height="30"
-                        VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
-                        Click="UnhideButtonCopy_Click"/>
+                        Foreground="#343434"
+                        Background="#008E70"
+                        BorderThickness="0"
+                        Width="22" Height="22"
+                        VerticalAlignment="Center" HorizontalAlignment="Left" Margin="224,0,0,0"
+                        Click="UnhideButtonCopy_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="14"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </Grid>
 
                 <Button x:Name="CreateAccount" 

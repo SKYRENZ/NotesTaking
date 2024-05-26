@@ -32,6 +32,25 @@ namespace NotesTaking.MVVM.View
             string password = crtPassword.Password;
             string confirmPassword = crtPassword_Copy.Password;
 
+            // Update password variable if the password is currently visible
+            if (crtPasswordText.Visibility == Visibility.Visible)
+            {
+                password = crtPasswordText.Text;
+            }
+
+            // Update confirmPassword variable if the confirmPassword is currently visible
+            if (crtPasswordCopyText.Visibility == Visibility.Visible)
+            {
+                confirmPassword = crtPasswordCopyText.Text;
+            }
+
+            //Checker if the username textbox is empty
+            if (string.IsNullOrEmpty(username))
+            {
+                MessageBox.Show("Username cannot be empty.", "Username Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             // Validate inputs
             if (!IsPasswordValid(password, out string validationError))
             {
@@ -72,9 +91,9 @@ namespace NotesTaking.MVVM.View
         {
             validationError = string.Empty;
 
-            if (password.Length < 8 || password.Length > 64)
+            if (password.Length < 8 || password.Length > 24)
             {
-                validationError = "Password must be between 8 and 64 characters.";
+                validationError = "Password must be between 8 and 24 characters.";
                 return false;
             }
 
@@ -86,7 +105,7 @@ namespace NotesTaking.MVVM.View
 
             if (!Regex.IsMatch(password, @"[0-9]"))
             {
-                validationError = "Password must contain at least one number.";
+                validationError = "Password must contain at least one numeric value.";
                 return false;
             }
 

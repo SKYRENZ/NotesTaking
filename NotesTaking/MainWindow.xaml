@@ -41,7 +41,7 @@
                 <Image Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-minimize-24.png" Width="20" Height="20" Stretch="Uniform" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </Grid>
 
-            <Image Margin="55,0,55,251" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\notabene.png" Grid.Column="1" Grid.Row="1"/>
+            <Image Margin="110,37,110,328" Source="Images\LogInLogo.png" Grid.Column="1" Grid.Row="1"/>
             <Button x:Name="btnSignIn" 
                     Background="Transparent"
                     Grid.Column="1" 

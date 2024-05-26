@@ -129,6 +129,7 @@ namespace NotesTaking
 
             // Show the window as a dialog (blocking the main window until it's closed)
             logoutWindow.ShowDialog();
+            this.Close();
         }
 
 

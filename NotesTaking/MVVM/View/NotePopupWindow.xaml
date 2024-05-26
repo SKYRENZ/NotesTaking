@@ -25,46 +25,37 @@
                     <TextBox Text="{Binding NoteContent, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" BorderThickness="0" Background="white" Margin="5" AcceptsReturn="True"/>
                 </ScrollViewer>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-
                     <Button x:Name="SaveButton" Margin="5" Click="SaveButton_Click" Width="80">
                         <StackPanel Orientation="Horizontal">
-                            <Image Height="32" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-making-notes-32.png" Stretch="Fill" Width="32"/>
+                            <Image Height="32" Source="pack://application:,,,/Images/iconsave.png" Stretch="Fill" Width="32"/>
                             <Label Content="Save" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="DeleteButton" Margin="5" Click="DeleteButton_Click" Width="80" Visibility="{Binding DeleteButtonVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Height="24" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-delete-24.png" Stretch="Fill" Width="24"/>
+                            <Image Height="24" Source="pack://application:,,,/Images/icons8-delete-24.png" Stretch="Fill" Width="24"/>
                             <Label Content="Delete" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-
                     <Button x:Name="ArchiveButton" Margin="5" Click="ArchiveButton_Click" Width="80" Visibility="{Binding IsArchived, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Inverse}">
-    <StackPanel Orientation="Horizontal">
-        <Image Height="24" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-archive-24.png" Stretch="Fill" Width="24"/>
-        <Label Content="Archive" VerticalAlignment="Center" Margin="5,0,0,0"/>
-    </StackPanel>
-</Button>
-
-
-
-                        <Button x:Name="CancelButton" Margin="5" Click="CancelButton_Click" Width="80">
                         <StackPanel Orientation="Horizontal">
-                            <Image Height="26" Source="C:\Users\chris\source\repos\NotesTaking\NotesTaking\Images\icons8-cancel-24.png" Stretch="Fill" Width="28"/>
+                            <Image Height="24" Source="pack://application:,,,/Images/icons8-archive-24.png" Stretch="Fill" Width="24"/>
+                            <Label Content="Archive" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="CancelButton" Margin="5" Click="CancelButton_Click" Width="80">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="26" Source="pack://application:,,,/Images/icons8-cancel-24.png" Stretch="Fill" Width="28"/>
                             <Label Content="Cancel" RenderTransformOrigin="0,0.381"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="UnarchiveButton" Margin="5" Click="UnarchiveButton_Click" Width="92" Visibility="{Binding IsArchived, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Height="24" Source="C:\Users\chris\Source\Repos\NotesTaking\NotesTaking\Images\unarchive.png" Stretch="Fill" Width="24"/>
+                            <Image Height="24" Source="pack://application:,,,/Images/unarchive.png" Stretch="Fill" Width="24"/>
                             <Label Content="Unarchive"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
-
-
-
-                <!-- Close Button Image -->
             </Grid>
         </Border>
     </Border>

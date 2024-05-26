@@ -1,6 +1,5 @@
 ﻿using NotesTaking.MVVM.Model;
 using NotesTaking.MVVM.ViewModel;
-using Org.BouncyCastle.Utilities;
 using System;
 using System.Windows;
 using System.Windows.Media;
@@ -21,7 +20,7 @@ namespace NotesTaking.MVVM.View
         {
             NoteTitle = txtTitle.Text;
             NoteContent = txtContent.Text;
-            string loggedInUsername = UserSession.LoggedInUsername; // Retrieve the logged-in username
+            string loggedInUsername = UserSession.LoggedInUsername;
 
             if (string.IsNullOrWhiteSpace(NoteTitle) || NoteTitle == "Note Title:")
             {
@@ -41,31 +40,20 @@ namespace NotesTaking.MVVM.View
                 return;
             }
 
-            // Get the logged-in account ID using the DatabaseManager
             DatabaseManager dbManager = new DatabaseManager();
-            int accountId = dbManager.GetLoggedInAccountId(loggedInUsername);
-
-            if (accountId == -1)
-            {
-                Console.WriteLine("Error: Unable to find account for logged-in user.");
-                return;
-            }
-
-            // Insert the note into the database
-            bool isInserted = dbManager.InsertNote(accountId, NoteTitle, NoteContent);
+            bool isInserted = dbManager.CreateNoteForLoggedInUser(loggedInUsername, NoteTitle, NoteContent);
 
             if (isInserted)
             {
                 Console.WriteLine("Note added successfully.");
-                DialogResult = true; // Indicate the note was successfully created
+                DialogResult = true;
             }
             else
             {
                 Console.WriteLine("Error: Unable to add the note.");
-                DialogResult = false; // Indicate the note creation failed
+                DialogResult = false;
             }
 
-            // Close the window
             this.Close();
         }
 
@@ -110,7 +98,6 @@ namespace NotesTaking.MVVM.View
             Close();
         }
 
-       
         private void CreateNoteButton_Click(object sender, RoutedEventArgs e)
         {
             CreateNoteWindow createNoteWindow = new CreateNoteWindow();
@@ -123,9 +110,9 @@ namespace NotesTaking.MVVM.View
                     NoteTitle = createNoteWindow.NoteTitle,
                     NoteContent = createNoteWindow.NoteContent // Assign the content from the textbox
                 };
-                
+
+                // Add additional logic if needed, e.g., updating the UI
             }
         }
-
     }
 }

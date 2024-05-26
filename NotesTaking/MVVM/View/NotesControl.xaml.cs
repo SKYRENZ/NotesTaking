@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using MySql.Data.MySqlClient;
 using NotesTaking.MVVM.Model;
 using NotesTaking.MVVM.ViewModel;
 
@@ -11,16 +11,16 @@ namespace NotesTaking.MVVM.View
     public partial class NotesControl : UserControl
     {
         public ObservableCollection<Note> Notes { get; set; }
-        private DatabaseManager dbManager; // Add an instance of DatabaseManager
+        private DatabaseManager dbManager;
 
         public NotesControl()
         {
             InitializeComponent();
             Notes = new ObservableCollection<Note>();
-            NotesItemsControl.ItemsSource = Notes; // Set the item source
+            NotesItemsControl.ItemsSource = Notes;
 
-            dbManager = new DatabaseManager(); // Initialize DatabaseManager instance
-            int accountId = dbManager.GetLoggedInAccountId(UserSession.LoggedInUsername); // Get the logged-in user's account ID
+            dbManager = new DatabaseManager();
+            int accountId = dbManager.GetLoggedInAccountId(UserSession.LoggedInUsername);
             if (accountId != -1)
             {
                 LoadNotes(accountId);
@@ -47,44 +47,83 @@ namespace NotesTaking.MVVM.View
             }
         }
 
-        public void LoadNotes(int accountId) // Make this method void and take accountId as parameter
+        private void LoadNotes(int accountId)
         {
-            ObservableCollection<Note> notes = new ObservableCollection<Note>();
-
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString)) // Use dbManager.ConnectionString
+                var notes = dbManager.LoadNotes(accountId);
+                Notes.Clear();
+                foreach (var note in notes)
                 {
-                    connection.Open();
-
-                    string query = "SELECT NotesID, NoteTitle, NoteContent FROM notes WHERE AccountID = @AccountID";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@AccountID", accountId);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Note note = new Note
-                            {
-                                NotesID = reader.GetInt32("NotesID"), // Ensure NotesID is read from the database
-                                NoteTitle = reader.GetString("NoteTitle"),
-                                NoteContent = reader.GetString("NoteContent")
-                            };
-                            notes.Add(note);
-                        }
-                    }
+                    Notes.Add(note);
                 }
             }
             catch (Exception ex)
             {
-                // Log: Exception
-                Console.WriteLine($"Exception: {ex.Message}");
+                MessageBox.Show($"Failed to load notes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            Notes = notes; // Set the loaded notes
-            NotesItemsControl.ItemsSource = Notes; // Refresh the item source
         }
+
+        private void ArchiveNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button archiveButton = (Button)sender;
+            if (archiveButton.DataContext is Note selectedNote)
+            {
+                int accountId = dbManager.GetLoggedInAccountId(UserSession.LoggedInUsername);
+                ArchiveNoteFromNotes(accountId, selectedNote.NotesID);
+            }
+        }
+
+        private void ArchiveNoteFromNotes(int accountId, int noteId)
+        {
+            if (accountId != -1)
+            {
+                if (dbManager.ArchiveNoteFromNotes(accountId, noteId))
+                {
+                    var note = Notes.FirstOrDefault(n => n.NotesID == noteId);
+                    if (note != null)
+                    {
+                        Notes.Remove(note);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to archive note.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error: Unable to find account for logged-in user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = (Button)sender;
+            if (deleteButton.DataContext is Note selectedNote)
+            {
+                // Pass only the noteId to the DeleteNoteFromNotes method
+                DeleteNoteFromNotes(selectedNote.NotesID);
+            }
+        }
+
+
+        private void DeleteNoteFromNotes(int noteId)
+        {
+            if (dbManager.DeleteNoteFromNotes(noteId))
+            {
+                var note = Notes.FirstOrDefault(n => n.NotesID == noteId);
+                if (note != null)
+                {
+                    Notes.Remove(note);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Failed to delete note.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
     }
 }

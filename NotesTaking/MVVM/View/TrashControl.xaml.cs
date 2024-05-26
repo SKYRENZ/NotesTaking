@@ -33,40 +33,15 @@ namespace NotesTaking.MVVM.View
 
         private void LoadTrashedNotes(int accountId)
         {
-            ObservableCollection<Note> trashedNotes = new ObservableCollection<Note>();
-
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(dbManager.ConnectionString))
-                {
-                    connection.Open();
-
-                    string query = "SELECT TrashID, TrashTitle, TrashContent FROM trash WHERE AccountID = @AccountID";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@AccountID", accountId);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Note note = new Note
-                            {
-                                NotesID = reader.GetInt32("TrashID"),
-                                NoteTitle = reader.GetString("TrashTitle"),
-                                NoteContent = reader.GetString("TrashContent")
-                            };
-                            trashedNotes.Add(note);
-                        }
-                    }
-                }
+                TrashedNotes = dbManager.LoadTrashedNotes(accountId);
+                TrashItemsControl.ItemsSource = TrashedNotes;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception: {ex.Message}");
+                MessageBox.Show($"Failed to load trashed notes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            TrashedNotes = trashedNotes;
-            TrashItemsControl.ItemsSource = TrashedNotes;
         }
 
         private void RestoreNoteFromTrash(int accountId, int noteId)
@@ -76,7 +51,11 @@ namespace NotesTaking.MVVM.View
                 if (dbManager.RestoreNoteFromTrash(accountId, noteId))
                 {
                     // Note restored successfully, update UI
-                    LoadTrashedNotes(accountId); // Reload trashed notes
+                    var note = TrashedNotes.FirstOrDefault(n => n.NotesID == noteId);
+                    if (note != null)
+                    {
+                        TrashedNotes.Remove(note);
+                    }
                 }
                 else
                 {
@@ -118,7 +97,6 @@ namespace NotesTaking.MVVM.View
             }
         }
 
-
         private void DeleteNoteFromTrash(int accountId, int noteId)
         {
             if (accountId != -1)
@@ -126,7 +104,11 @@ namespace NotesTaking.MVVM.View
                 if (dbManager.DeleteNoteFromTrash(accountId, noteId))
                 {
                     // Note deleted successfully, update UI
-                    LoadTrashedNotes(accountId); // Reload trashed notes
+                    var note = TrashedNotes.FirstOrDefault(n => n.NotesID == noteId);
+                    if (note != null)
+                    {
+                        TrashedNotes.Remove(note);
+                    }
                 }
                 else
                 {

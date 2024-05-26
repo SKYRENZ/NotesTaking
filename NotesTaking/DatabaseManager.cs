@@ -1,240 +1,466 @@
 ﻿using MySql.Data.MySqlClient;
 using NotesTaking.MVVM.Model;
-using System;
 using System.Collections.ObjectModel;
 
-namespace NotesTaking
+public class DatabaseManager
 {
-    public class DatabaseManager
+    public string ConnectionString { get; private set; }
+
+    public DatabaseManager()
     {
-        public string ConnectionString { get; private set; }
+        ConnectionString = "server=localhost;user=root;database=notetaking_test;port=3306";
+    }
 
-        public DatabaseManager()
+    public bool ValidateUser(string username, string password)
+    {
+        try
         {
-            // Set your default connection string here or pass it as a parameter to the constructor
-            ConnectionString = "server=localhost;user=root;database=notetaking_test;port=3306";
-        }
-
-        public bool ValidateUser(string username, string password)
-        {
-            try
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                connection.Open();
+
+                string query = "SELECT COUNT(*) FROM account WHERE AccountUser = @username AND BINARY AccountPass = @password";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@password", password);
+
+                int count = Convert.ToInt32(command.ExecuteScalar());
+
+                return count > 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+            return false;
+        }
+    }
+
+    public bool InsertNote(int accountId, string noteTitle, string noteContent)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string query = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) VALUES (@accountId, @noteTitle, @noteContent)";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@accountId", accountId);
+                command.Parameters.AddWithValue("@noteTitle", noteTitle);
+                command.Parameters.AddWithValue("@noteContent", noteContent);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                return rowsAffected > 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+            return false;
+        }
+    }
+
+    public int GetLoggedInAccountId(string loggedInUsername)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT AccountID FROM account WHERE AccountUser = @loggedInUsername";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@loggedInUsername", loggedInUsername);
+
+                object result = command.ExecuteScalar();
+                if (result != null)
                 {
-                    connection.Open();
-
-                    // Ensure that the query respects case sensitivity by default
-                    string query = "SELECT COUNT(*) FROM account WHERE AccountUser = @username AND BINARY AccountPass = @password";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@password", password);
-
-                    int count = Convert.ToInt32(command.ExecuteScalar());
-
-                    return count > 0;
+                    return Convert.ToInt32(result);
+                }
+                else
+                {
+                    Console.WriteLine($"User {loggedInUsername} not found.");
+                    return -1;
                 }
             }
-            catch (Exception ex)
-            {
-                // Log or handle the exception appropriately
-                Console.WriteLine($"Exception: {ex.Message}");
-                return false;
-            }
         }
-
-        public bool InsertNote(int accountId, string noteTitle, string noteContent)
+        catch (Exception ex)
         {
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
-                {
-                    connection.Open();
-
-                    string query = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) VALUES (@accountId, @noteTitle, @noteContent)";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@accountId", accountId);
-                    command.Parameters.AddWithValue("@noteTitle", noteTitle);
-                    command.Parameters.AddWithValue("@noteContent", noteContent);
-
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    return rowsAffected > 0;
-                }
-            }
-            catch (Exception)
-            {
-                // Log or handle the exception appropriately
-                return false;
-            }
+            Console.WriteLine($"Exception: {ex.Message}");
+            return -1;
         }
+    }
 
-        public int GetLoggedInAccountId(string loggedInUsername)
+    public ObservableCollection<Note> LoadNotes(int accountId)
+    {
+        ObservableCollection<Note> notes = new ObservableCollection<Note>();
+
+        try
         {
-            try
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                connection.Open();
+
+                string query = "SELECT NotesID, NoteTitle, NoteContent FROM notes WHERE AccountID = @AccountID";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@AccountID", accountId);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    connection.Open();
-
-                    string query = "SELECT AccountID FROM account WHERE AccountUser = @loggedInUsername";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@loggedInUsername", loggedInUsername);
-
-                    object result = command.ExecuteScalar();
-                    if (result != null)
+                    while (reader.Read())
                     {
-                        return Convert.ToInt32(result);
-                    }
-                    else
-                    {
-                        // Log: User not found
-                        Console.WriteLine($"User {loggedInUsername} not found.");
-                        return -1; // User not found
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log: Exception
-                Console.WriteLine($"Exception: {ex.Message}");
-                return -1; // Return a default or error value
-            }
-        }
-
-        public ObservableCollection<Note> LoadNotes(int accountId)
-        {
-            ObservableCollection<Note> notes = new ObservableCollection<Note>();
-
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
-                {
-                    connection.Open();
-
-                    string query = "SELECT NoteTitle, NoteContent FROM notes WHERE AccountID = @AccountID";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@AccountID", accountId);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
+                        Note note = new Note
                         {
-                            Note note = new Note
-                            {
-                                NoteTitle = reader.GetString("NoteTitle"),
-                                NoteContent = reader.GetString("NoteContent")
-                            };
-                            notes.Add(note);
-                        }
+                            NotesID = reader.GetInt32("NotesID"),
+                            NoteTitle = reader.GetString("NoteTitle"),
+                            NoteContent = reader.GetString("NoteContent")
+                        };
+                        notes.Add(note);
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                // Log: Exception
-                Console.WriteLine($"Exception: {ex.Message}");
-            }
-
-            return notes;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
         }
 
-        public bool RestoreNoteFromTrash(int accountId, int noteId)
+        return notes;
+    }
+
+    public bool ArchiveNoteFromNotes(int accountId, int noteId)
+    {
+        try
         {
-            try
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
-                {
-                    connection.Open();
+                connection.Open();
 
-                    // Begin a transaction
-                    using (MySqlTransaction transaction = connection.BeginTransaction())
-                    {
-                        // Retrieve the note data from the trash table
-                        string retrieveQuery = "SELECT TrashTitle, TrashContent FROM trash WHERE TrashID = @TrashID";
-                        MySqlCommand retrieveCommand = new MySqlCommand(retrieveQuery, connection, transaction);
-                        retrieveCommand.Parameters.AddWithValue("@TrashID", noteId);
+                string query = "UPDATE notes SET IsArchived = 1 WHERE AccountID = @AccountID AND NotesID = @NotesID";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@AccountID", accountId);
+                command.Parameters.AddWithValue("@NotesID", noteId);
 
-                        string noteTitle = "";
-                        string noteContent = "";
-
-                        using (MySqlDataReader reader = retrieveCommand.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                noteTitle = reader.GetString("TrashTitle");
-                                noteContent = reader.GetString("TrashContent");
-                            }
-                            else
-                            {
-                                // Note not found in trash
-                                transaction.Rollback();
-                                return false;
-                            }
-                        }
-
-                        // Insert the note data into the notes table
-                        string insertQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) VALUES (@accountId, @noteTitle, @noteContent)";
-                        MySqlCommand insertCommand = new MySqlCommand(insertQuery, connection, transaction);
-                        insertCommand.Parameters.AddWithValue("@accountId", accountId);
-                        insertCommand.Parameters.AddWithValue("@noteTitle", noteTitle);
-                        insertCommand.Parameters.AddWithValue("@noteContent", noteContent);
-
-                        int rowsInserted = insertCommand.ExecuteNonQuery();
-
-                        if (rowsInserted > 0)
-                        {
-                            // Delete the note data from the trash table
-                            string deleteQuery = "DELETE FROM trash WHERE TrashID = @TrashID";
-                            MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection, transaction);
-                            deleteCommand.Parameters.AddWithValue("@TrashID", noteId);
-                            int rowsDeleted = deleteCommand.ExecuteNonQuery();
-
-                            if (rowsDeleted > 0)
-                            {
-                                // Commit the transaction if both operations succeed
-                                transaction.Commit();
-                                return true;
-                            }
-                        }
-
-                        // Rollback the transaction if any operation fails
-                        transaction.Rollback();
-                    }
-                }
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected > 0;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception: {ex.Message}");
-                // Add additional error handling/logging as needed
-            }
-
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+            return false;
+        }
+    }
+    public bool CreateNoteForLoggedInUser(string loggedInUsername, string noteTitle, string noteContent)
+    {
+        int accountId = GetLoggedInAccountId(loggedInUsername);
+        if (accountId == -1)
+        {
+            Console.WriteLine("Error: Unable to find account for logged-in user.");
             return false;
         }
 
-        public bool DeleteNoteFromTrash(int accountId, int noteId)
+        return InsertNote(accountId, noteTitle, noteContent);
+    }
+
+    public bool UpdateNote(Note noteToSave)
+    {
+        try
         {
-            try
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                connection.Open();
+
+                if (noteToSave.NotesID > 0)
                 {
-                    connection.Open();
+                    string updateQuery = "UPDATE notes SET NoteTitle = @NoteTitle, NoteContent = @NoteContent WHERE NotesID = @NotesID";
+                    MySqlCommand updateCommand = new MySqlCommand(updateQuery, connection);
+                    updateCommand.Parameters.AddWithValue("@NoteTitle", noteToSave.NoteTitle);
+                    updateCommand.Parameters.AddWithValue("@NoteContent", noteToSave.NoteContent);
+                    updateCommand.Parameters.AddWithValue("@NotesID", noteToSave.NotesID);
 
-                    string query = "DELETE FROM trash WHERE AccountID = @AccountId AND TrashID = @NoteId";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@AccountId", accountId);
-                    command.Parameters.AddWithValue("@NoteId", noteId);
-
-                    int rowsAffected = command.ExecuteNonQuery();
+                    int rowsAffected = updateCommand.ExecuteNonQuery();
 
                     return rowsAffected > 0;
                 }
+                else
+                {
+                    Console.WriteLine("Invalid note ID.");
+                    return false;
+                }
             }
-            catch (Exception ex)
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating note: {ex.Message}");
+            return false;
+        }
+    }
+
+    public bool ArchiveNote(Note note)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
-                // Log or handle the exception appropriately
-                Console.WriteLine($"Exception: {ex.Message}");
+                connection.Open();
+
+                string insertArchiveQuery = "INSERT INTO archive (AccountID, NotesID, ArchivedDate, ArchiveTitle, ArchiveContent) " +
+                                            "SELECT AccountID, NotesID, NOW(), NoteTitle, NoteContent FROM notes WHERE NotesID = @NotesID";
+                MySqlCommand insertArchiveCommand = new MySqlCommand(insertArchiveQuery, connection);
+                insertArchiveCommand.Parameters.AddWithValue("@NotesID", note.NotesID);
+                insertArchiveCommand.ExecuteNonQuery();
+
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error archiving note: {ex.Message}");
+            return false;
+        }
+    }
+
+    public bool DeleteNoteFromNotes(int noteId)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string query = "DELETE FROM notes WHERE NotesID = @NotesID";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@NotesID", noteId);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                return rowsAffected > 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log or handle the exception appropriately
+            Console.WriteLine($"Exception: {ex.Message}");
+            return false;
+        }
+    }
+
+    public void MoveNoteToTrash(int noteId)
+    {
+        // Implementation to move the note with the specified ID to trash
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                // Prepare the SQL INSERT query to move note to trash table
+                string insertTrashQuery = "INSERT INTO trash (AccountID, NoteID, TrashedDate, TrashTitle, TrashContent) " +
+                                          "SELECT AccountID, NotesID, NOW(), NoteTitle, NoteContent FROM notes WHERE NotesID = @NotesID";
+                MySqlCommand insertTrashCommand = new MySqlCommand(insertTrashQuery, connection);
+                insertTrashCommand.Parameters.AddWithValue("@NotesID", noteId);
+                insertTrashCommand.ExecuteNonQuery();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error moving note to trash: {ex.Message}");
+        }
+    }
+
+    public bool DeleteNoteFromDatabase(Note note)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string deleteNoteQuery = "DELETE FROM notes WHERE NotesID = @NotesID";
+                MySqlCommand deleteNoteCommand = new MySqlCommand(deleteNoteQuery, connection);
+                deleteNoteCommand.Parameters.AddWithValue("@NotesID", note.NotesID);
+                deleteNoteCommand.ExecuteNonQuery();
+
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting note from notes table: {ex.Message}");
+            return false;
+        }
+    }
+
+    public bool UnarchiveNote(Note note)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string insertNoteQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) " +
+                                         "SELECT AccountID, @NoteTitle, @NoteContent FROM archive WHERE ArchiveID = @ArchiveID";
+                MySqlCommand insertNoteCommand = new MySqlCommand(insertNoteQuery, connection);
+                insertNoteCommand.Parameters.AddWithValue("@NoteTitle", note.NoteTitle);
+                insertNoteCommand.Parameters.AddWithValue("@NoteContent", note.NoteContent);
+                insertNoteCommand.Parameters.AddWithValue("@ArchiveID", note.NotesID);
+                insertNoteCommand.ExecuteNonQuery();
+
+                string deleteArchiveQuery = "DELETE FROM archive WHERE ArchiveID = @ArchiveID";
+                MySqlCommand deleteArchiveCommand = new MySqlCommand(deleteArchiveQuery, connection);
+                deleteArchiveCommand.Parameters.AddWithValue("@ArchiveID", note.NotesID);
+                deleteArchiveCommand.ExecuteNonQuery();
+
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error unarchiving note: {ex.Message}");
+            return false;
+        }
+    }
+
+    public ObservableCollection<Note> LoadTrashedNotes(int accountId)
+    {
+        ObservableCollection<Note> trashedNotes = new ObservableCollection<Note>();
+
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT TrashID, TrashTitle, TrashContent FROM trash WHERE AccountID = @AccountID";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@AccountID", accountId);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Note note = new Note
+                        {
+                            NotesID = reader.GetInt32("TrashID"),
+                            NoteTitle = reader.GetString("TrashTitle"),
+                            NoteContent = reader.GetString("TrashContent")
+                        };
+                        trashedNotes.Add(note);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error loading trashed notes: {ex.Message}");
+        }
+
+        return trashedNotes;
+    }
+
+    public bool RestoreNoteFromTrash(int accountId, int noteId)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                // Prepare the SQL INSERT query to move note back to notes table
+                string insertNoteQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) " +
+                                         "SELECT AccountID, TrashTitle, TrashContent FROM trash WHERE TrashID = @TrashID AND AccountID = @AccountID";
+                MySqlCommand insertNoteCommand = new MySqlCommand(insertNoteQuery, connection);
+                insertNoteCommand.Parameters.AddWithValue("@TrashID", noteId);
+                insertNoteCommand.Parameters.AddWithValue("@AccountID", accountId);
+
+                int rowsInserted = insertNoteCommand.ExecuteNonQuery();
+
+                if (rowsInserted > 0)
+                {
+                    // Delete the note from the trash table
+                    string deleteTrashQuery = "DELETE FROM trash WHERE TrashID = @TrashID AND AccountID = @AccountID";
+                    MySqlCommand deleteTrashCommand = new MySqlCommand(deleteTrashQuery, connection);
+                    deleteTrashCommand.Parameters.AddWithValue("@TrashID", noteId);
+                    deleteTrashCommand.Parameters.AddWithValue("@AccountID", accountId);
+
+                    deleteTrashCommand.ExecuteNonQuery();
+
+                    return true;
+                }
                 return false;
             }
         }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error restoring note from trash: {ex.Message}");
+        }
+    }
+
+    public bool DeleteNoteFromTrash(int accountId, int noteId)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                // Prepare the SQL DELETE query to remove note from trash table
+                string deleteNoteQuery = "DELETE FROM trash WHERE TrashID = @TrashID AND AccountID = @AccountID";
+                MySqlCommand deleteNoteCommand = new MySqlCommand(deleteNoteQuery, connection);
+                deleteNoteCommand.Parameters.AddWithValue("@TrashID", noteId);
+                deleteNoteCommand.Parameters.AddWithValue("@AccountID", accountId);
+
+                int rowsDeleted = deleteNoteCommand.ExecuteNonQuery();
+
+                return rowsDeleted > 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error deleting note from trash: {ex.Message}");
+        }
+    }
+    
+    public ObservableCollection<Note> GetArchivedNotes(int accountId)
+    {
+        ObservableCollection<Note> archivedNotes = new ObservableCollection<Note>();
+
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT ArchiveID, ArchiveTitle, ArchiveContent FROM archive WHERE AccountID = @AccountID";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@AccountID", accountId);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Note note = new Note
+                        {
+                            NotesID = reader.GetInt32("ArchiveID"),
+                            NoteTitle = reader.GetString("ArchiveTitle"),
+                            NoteContent = reader.GetString("ArchiveContent"),
+                            IsArchived = true // Set IsArchived to true for archived notes
+                        };
+                        archivedNotes.Add(note);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+        }
+
+        return archivedNotes;
     }
 }
+

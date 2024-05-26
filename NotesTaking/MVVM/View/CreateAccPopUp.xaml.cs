@@ -91,7 +91,7 @@ namespace NotesTaking.MVVM.View
         {
             validationError = string.Empty;
 
-            if (password.Length < 8 || password.Length > 24)
+            if (password.Length <= 8 || password.Length >= 24)
             {
                 validationError = "Password must be between 8 and 24 characters.";
                 return false;

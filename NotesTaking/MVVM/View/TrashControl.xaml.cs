@@ -105,7 +105,16 @@ namespace NotesTaking.MVVM.View
             if (deleteButton.DataContext is Note selectedNote)
             {
                 int accountId = dbManager.GetLoggedInAccountId(UserSession.LoggedInUsername);
-                DeleteNoteFromTrash(accountId, selectedNote.NotesID);
+
+                // Display confirmation dialog
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this note?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                // Check user's choice
+                if (result == MessageBoxResult.Yes)
+                {
+                    // User confirmed deletion, proceed with deletion
+                    DeleteNoteFromTrash(accountId, selectedNote.NotesID);
+                }
             }
         }
 

@@ -10,7 +10,6 @@ namespace NotesTaking
     public partial class Dashboard : Window
     {
         public CornerRadius CornerRadius { get; set; }
-        
 
         private SolidColorBrush? originalFill, originalStroke, originalFillMinimize, originalStrokeMinimize;
         private Button previousButton; // Variable to keep track of the previously clicked button
@@ -29,8 +28,6 @@ namespace NotesTaking
             // Set NotesControl as the default view
             SetDefaultView();
             DataContext = new DateTimeViewModel();
-
-
         }
 
         private void SetDefaultView()
@@ -81,7 +78,6 @@ namespace NotesTaking
             previousButton = button;
         }
 
-
         private void btnNotes_Click(object sender, RoutedEventArgs e)
         {
             // Load the Notes control into the content area
@@ -129,10 +125,17 @@ namespace NotesTaking
 
             // Show the window as a dialog (blocking the main window until it's closed)
             logoutWindow.ShowDialog();
-            this.Close();
+
+            // Check the user's choice
+            if (logoutWindow.IsLogoutConfirmed)
+            {
+                // Perform logout actions if Yes was clicked
+                MainWindow loginWindow = new MainWindow();
+                loginWindow.Show();
+                this.Close(); // Close the current dashboard window
+            }
+            // If No was clicked, simply return and do nothing (the dialog will have already closed itself)
         }
-
-
 
         private void Dashboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -153,4 +156,3 @@ namespace NotesTaking
         }
     }
 }
-

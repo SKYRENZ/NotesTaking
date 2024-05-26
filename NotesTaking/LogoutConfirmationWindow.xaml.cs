@@ -4,22 +4,24 @@ namespace NotesTaking
 {
     public partial class LogoutConfirmationWindow : Window
     {
+        public bool IsLogoutConfirmed { get; private set; }
+
         public LogoutConfirmationWindow()
         {
             InitializeComponent();
+            IsLogoutConfirmed = false; // Initialize to false
         }
 
         private void Yes_Click(object sender, RoutedEventArgs e)
         {
-            // Perform logout actions
-            MainWindow loginWindow = new MainWindow();
-            loginWindow.Show();
-            Close(); // Close the current window
+            IsLogoutConfirmed = true; // Set to true when Yes is clicked
+            Close();
         }
 
         private void No_Click(object sender, RoutedEventArgs e)
         {
-            Close(); // Close the current window without performing logout actions
+            IsLogoutConfirmed = false; // Set to false when No is clicked
+            Close();
         }
     }
 }

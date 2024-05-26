@@ -144,8 +144,32 @@ namespace NotesTaking.MVVM.View
                 MessageBox.Show($"Error creating account: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+        }
 
+        private void UnhideButton_Click(object sender, RoutedEventArgs e)
+        {
+            TogglePasswordVisibility(crtPassword, crtPasswordText);
+        }
+
+        private void UnhideButtonCopy_Click(object sender, RoutedEventArgs e)
+        {
+            TogglePasswordVisibility(crtPassword_Copy, crtPasswordCopyText);
+        }
+
+        private void TogglePasswordVisibility(PasswordBox passwordBox, TextBox textBox)
+        {
+            if (passwordBox.Visibility == Visibility.Visible)
+            {
+                textBox.Text = passwordBox.Password;
+                textBox.Visibility = Visibility.Visible;
+                passwordBox.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                passwordBox.Password = textBox.Text;
+                textBox.Visibility = Visibility.Collapsed;
+                passwordBox.Visibility = Visibility.Visible;
+            }
         }
     }
 }
-

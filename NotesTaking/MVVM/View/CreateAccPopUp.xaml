@@ -68,35 +68,68 @@
                       FontFamily="Segoe"
                       Foreground="DimGray"/>
 
-                <PasswordBox x:Name="crtPassword"
-                    HorizontalAlignment="Center" 
-                    Margin="0,300,0,248" 
-                    Width="248"
-                    FontSize="16"
-                    Foreground="WhiteSmoke"
-                    Opacity=".9"
-                    Background="Transparent"
-                    BorderBrush="#008E70"
-                    VerticalContentAlignment="Center"
-                    BorderThickness="0,0,0,2.5"/>
+                <Grid HorizontalAlignment="Center" Margin="0,300,0,248" Width="248">
+                    <PasswordBox x:Name="crtPassword"
+                        Width="248"
+                        FontSize="16"
+                        Foreground="WhiteSmoke"
+                        Opacity=".9"
+                        Background="Transparent"
+                        BorderBrush="#008E70"
+                        VerticalContentAlignment="Center"
+                        BorderThickness="0,0,0,2.5"/>
 
-                <PasswordBox x:Name="crtPassword_Copy"
-                    HorizontalAlignment="Center" 
-                    Margin="0,355,0,192" 
-                    Width="248"
-                    FontSize="16"
-                    Foreground="WhiteSmoke"
-                    Opacity=".9"
-                    Background="Transparent"
-                    BorderBrush="#008E70"
-                    VerticalContentAlignment="Center"
-                    BorderThickness="0,0,0,2.5"/>
+                    <TextBox x:Name="crtPasswordText"
+                        Width="248"
+                        FontSize="16"
+                        Foreground="WhiteSmoke"
+                        Opacity=".9"
+                        Background="Transparent"
+                        BorderBrush="#008E70"
+                        VerticalContentAlignment="Center"
+                        BorderThickness="0,0,0,2.5"
+                        Visibility="Collapsed"/>
+
+                    <Button x:Name="UnhideButton" Content="👁" 
+                        Width="30" Height="30"
+                        VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                        Click="UnhideButton_Click"/>
+                </Grid>
+
                 <TextBlock Text="Confirm Password" 
                     Margin="97,347,244,218"
                     FontSize="12"
                     FontWeight="SemiBold"
                     FontFamily="Segoe"
                     Foreground="DimGray"/>
+
+                <Grid HorizontalAlignment="Center" Margin="0,355,0,192" Width="248">
+                    <PasswordBox x:Name="crtPassword_Copy"
+                        Width="248"
+                        FontSize="16"
+                        Foreground="WhiteSmoke"
+                        Opacity=".9"
+                        Background="Transparent"
+                        BorderBrush="#008E70"
+                        VerticalContentAlignment="Center"
+                        BorderThickness="0,0,0,2.5"/>
+
+                    <TextBox x:Name="crtPasswordCopyText"
+                        Width="248"
+                        FontSize="16"
+                        Foreground="WhiteSmoke"
+                        Opacity=".9"
+                        Background="Transparent"
+                        BorderBrush="#008E70"
+                        VerticalContentAlignment="Center"
+                        BorderThickness="0,0,0,2.5"
+                        Visibility="Collapsed"/>
+
+                    <Button x:Name="UnhideButton_Copy" Content="👁" 
+                        Width="30" Height="30"
+                        VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                        Click="UnhideButtonCopy_Click"/>
+                </Grid>
 
                 <Button x:Name="CreateAccount" 
                     Background="Transparent" 

@@ -18,7 +18,19 @@
             <ItemsControl x:Name="TrashItemsControl" ItemsSource="{Binding TrashedNotes}" Width="533">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <view:NoteContainer/>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding NoteTitle}" FontWeight="Bold" Margin="5"/>
+                                <Button Content="Restore" Grid.Column="1" Margin="5" Click="RestoreButton_Click"/>
+                                <Button Content="Delete" Grid.Column="2" Margin="5" Click="DeleteButton_Click"/>
+                            </Grid>
+                            <Separator Margin="5,0"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

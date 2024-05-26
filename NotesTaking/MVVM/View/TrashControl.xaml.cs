@@ -68,5 +68,66 @@ namespace NotesTaking.MVVM.View
             TrashedNotes = trashedNotes;
             TrashItemsControl.ItemsSource = TrashedNotes;
         }
+
+        private void RestoreNoteFromTrash(int accountId, int noteId)
+        {
+            if (accountId != -1)
+            {
+                if (dbManager.RestoreNoteFromTrash(accountId, noteId))
+                {
+                    // Note restored successfully, update UI
+                    LoadTrashedNotes(accountId); // Reload trashed notes
+                }
+                else
+                {
+                    MessageBox.Show("Failed to restore note.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error: Unable to find account for logged-in user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void RestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button restoreButton = (Button)sender;
+            if (restoreButton.DataContext is Note selectedNote)
+            {
+                int accountId = dbManager.GetLoggedInAccountId(UserSession.LoggedInUsername);
+                RestoreNoteFromTrash(accountId, selectedNote.NotesID);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = (Button)sender;
+            if (deleteButton.DataContext is Note selectedNote)
+            {
+                int accountId = dbManager.GetLoggedInAccountId(UserSession.LoggedInUsername);
+                DeleteNoteFromTrash(accountId, selectedNote.NotesID);
+            }
+        }
+
+
+        private void DeleteNoteFromTrash(int accountId, int noteId)
+        {
+            if (accountId != -1)
+            {
+                if (dbManager.DeleteNoteFromTrash(accountId, noteId))
+                {
+                    // Note deleted successfully, update UI
+                    LoadTrashedNotes(accountId); // Reload trashed notes
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete note.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error: Unable to find account for logged-in user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

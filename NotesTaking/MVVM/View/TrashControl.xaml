@@ -45,6 +45,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Border Background="#343434" CornerRadius="12" Grid.RowSpan="2">
+            <Border.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" ShadowDepth="5" Softness="0.5" Opacity="0.5"/>
+            </Border.BitmapEffect>
+        </Border>
+
         <TextBlock Text="Trashed Notes" FontSize="24" FontWeight="Bold" Foreground="WhiteSmoke" HorizontalAlignment="Center" Margin="0,10"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">

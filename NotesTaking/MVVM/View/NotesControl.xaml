@@ -13,7 +13,11 @@
         </Grid.RowDefinitions>
 
         <!-- Background Border -->
-        <Border Background="#28282b" CornerRadius="12" Grid.RowSpan="2"/>
+        <Border Background="#343434" CornerRadius="12" Grid.RowSpan="2">
+            <Border.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" ShadowDepth="5" Softness="0.5" Opacity="0.5"/>
+            </Border.BitmapEffect>
+        </Border>
 
         <!-- Create Note Button (Top Center) -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10,10,0,0">
@@ -62,7 +66,7 @@
         </StackPanel>
 
         <!-- Notes Display Area with ScrollViewer -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
             <ItemsControl x:Name="NotesItemsControl" Margin="0,10,0,0" ItemsSource="{Binding Notes}" Width="748" Padding="11">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

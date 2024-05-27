@@ -11,24 +11,27 @@ namespace NotesTaking.MVVM.View
         public string NoteTitle { get; private set; }
         public string NoteContent { get; private set; }
 
+        private DatabaseManager dbManager;
+
         public CreateNoteWindow()
         {
             InitializeComponent();
+            dbManager = new DatabaseManager();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            NoteTitle = txtTitle.Text;
-            NoteContent = txtContent.Text;
+            NoteTitle = txtTitle.Text.Trim();
+            NoteContent = txtContent.Text.Trim();
             string loggedInUsername = UserSession.LoggedInUsername;
 
-            if (string.IsNullOrWhiteSpace(NoteTitle) || NoteTitle == "Note Title:")
+            if (string.IsNullOrEmpty(NoteTitle) || NoteTitle == "Note Title:")
             {
                 MessageBox.Show("Please enter a title for the note.", "Missing Title", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(NoteContent) || NoteContent == "Note...")
+            if (string.IsNullOrEmpty(NoteContent) || NoteContent == "Note...")
             {
                 MessageBox.Show("Please enter content for the note.", "Missing Content", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -36,26 +39,44 @@ namespace NotesTaking.MVVM.View
 
             if (string.IsNullOrEmpty(loggedInUsername))
             {
-                Console.WriteLine("Error: No user is currently logged in.");
+                MessageBox.Show("Error: No user is currently logged in.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            DatabaseManager dbManager = new DatabaseManager();
-            bool isInserted = dbManager.CreateNoteForLoggedInUser(loggedInUsername, NoteTitle, NoteContent);
+            // Create a new note object with the current date and time
+            Note newNote = new Note
+            {
+                NoteTitle = NoteTitle,
+                NoteContent = NoteContent,
+                NoteDate = DateTime.Now // Provide the current datetime
+            };
 
+            // Get the account ID for the logged-in user
+            int accountId = dbManager.GetLoggedInAccountId(loggedInUsername);
+            if (accountId == -1)
+            {
+                MessageBox.Show("Error: Unable to find account for logged-in user.", "Account Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Insert the note into the database
+            bool isInserted = dbManager.InsertNote(accountId, newNote.NoteTitle, newNote.NoteContent, newNote.NoteDate);
             if (isInserted)
             {
-                Console.WriteLine("Note added successfully.");
+                MessageBox.Show("Note added successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 DialogResult = true;
             }
             else
             {
-                Console.WriteLine("Error: Unable to add the note.");
+                MessageBox.Show("Error: Unable to add the note.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 DialogResult = false;
             }
 
+            // Close the window
             this.Close();
         }
+
+
 
         private void txtTitle_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -95,7 +116,7 @@ namespace NotesTaking.MVVM.View
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         private void CreateNoteButton_Click(object sender, RoutedEventArgs e)
@@ -108,7 +129,7 @@ namespace NotesTaking.MVVM.View
                 Note newNote = new Note
                 {
                     NoteTitle = createNoteWindow.NoteTitle,
-                    NoteContent = createNoteWindow.NoteContent // Assign the content from the textbox
+                    NoteContent = createNoteWindow.NoteContent
                 };
 
                 // Add additional logic if needed, e.g., updating the UI

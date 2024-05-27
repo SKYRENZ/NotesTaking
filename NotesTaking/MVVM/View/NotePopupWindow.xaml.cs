@@ -13,7 +13,7 @@ namespace NotesTaking.MVVM.View
         private readonly NoteViewModel _noteViewModel;
 
         public NotePopupWindow()
-        {
+        {   
             InitializeComponent();
             _noteViewModel = new NoteViewModel();
             DataContext = _noteViewModel;

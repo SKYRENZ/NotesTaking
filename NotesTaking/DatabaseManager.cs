@@ -1,30 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
 using NotesTaking.MVVM.Model;
-using Org.BouncyCastle.Utilities;
+using System;
 using System.Collections.ObjectModel;
-using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
-using System.Security.Principal;
-
-
-/* This DatabaseManager class is responsible for managing interactions with the database in a WPF note-taking application. Here's a breakdown of its main functionalities:
-ConnectionString: The class holds a connection string to the MySQL database.
-ValidateUser: This method checks if a user with a given username and password exists in the database. It executes a SQL query to count the rows matching the username and password.
-InsertNote: Inserts a new note into the database with the provided account ID, note title, and note content.
-GetLoggedInAccountId: Retrieves the account ID of the logged-in user based on their username.
-LoadNotes: Loads all notes associated with a given account ID from the database.
-ArchiveNoteFromNotes: Archives a note by updating the IsArchived field in the notes table to 1.
-CreateNoteForLoggedInUser: Creates a new note for the logged-in user by first retrieving their account ID.
-UpdateNote: Updates an existing note in the notes table with new title and content.
-ArchiveNote: Archives a note by moving it from the notes table to the archive table.
-DeleteNoteFromNotes: Deletes a note from the notes table based on its ID.
-MoveNoteToTrash: Moves a note to the trash by inserting it into the trash table.
-DeleteNoteFromDatabase: Deletes a note from the notes table based on its ID.
-UnarchiveNote: Restores a note from the archive by moving it back to the notes table.
-LoadTrashedNotes: Loads all notes that have been moved to the trash for a given account ID.
-RestoreNoteFromTrash: Restores a note from the trash by moving it back to the notes table.
-DeleteNoteFromTrash: Permanently deletes a note from the trash.
-GetArchivedNotes: Retrieves archived notes for a given account ID from the archive table. */
 
 public class DatabaseManager
 {
@@ -60,7 +37,7 @@ public class DatabaseManager
         }
     }
 
-    public bool InsertNote(int accountId, string noteTitle, string noteContent)
+    public bool InsertNote(int accountId, string noteTitle, string noteContent, DateTime noteDate)
     {
         try
         {
@@ -68,11 +45,12 @@ public class DatabaseManager
             {
                 connection.Open();
 
-                string query = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) VALUES (@accountId, @noteTitle, @noteContent)";
+                string query = "INSERT INTO notes (AccountID, NoteTitle, NoteContent, NoteDate) VALUES (@accountId, @noteTitle, @noteContent, @noteDate)";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@accountId", accountId);
                 command.Parameters.AddWithValue("@noteTitle", noteTitle);
                 command.Parameters.AddWithValue("@noteContent", noteContent);
+                command.Parameters.AddWithValue("@noteDate", noteDate); // Use the provided noteDate parameter
 
                 int rowsAffected = command.ExecuteNonQuery();
 
@@ -85,6 +63,8 @@ public class DatabaseManager
             return false;
         }
     }
+
+
 
     public int GetLoggedInAccountId(string loggedInUsername)
     {
@@ -127,7 +107,7 @@ public class DatabaseManager
             {
                 connection.Open();
 
-                string query = "SELECT NotesID, NoteTitle, NoteContent FROM notes WHERE AccountID = @AccountID";
+                string query = "SELECT NotesID, NoteTitle, NoteContent, NoteDate FROM notes WHERE AccountID = @AccountID";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@AccountID", accountId);
 
@@ -139,7 +119,8 @@ public class DatabaseManager
                         {
                             NotesID = reader.GetInt32("NotesID"),
                             NoteTitle = reader.GetString("NoteTitle"),
-                            NoteContent = reader.GetString("NoteContent")
+                            NoteContent = reader.GetString("NoteContent"),
+                            NoteDate = reader.GetDateTime("NoteDate")
                         };
                         notes.Add(note);
                     }
@@ -177,7 +158,8 @@ public class DatabaseManager
             return false;
         }
     }
-    public bool CreateNoteForLoggedInUser(string loggedInUsername, string noteTitle, string noteContent)
+
+    public bool CreateNoteForLoggedInUser(string loggedInUsername, string noteTitle, string noteContent, DateTime noteDate)
     {
         int accountId = GetLoggedInAccountId(loggedInUsername);
         if (accountId == -1)
@@ -186,7 +168,7 @@ public class DatabaseManager
             return false;
         }
 
-        return InsertNote(accountId, noteTitle, noteContent);
+        return InsertNote(accountId, noteTitle, noteContent, noteDate);
     }
 
     public bool UpdateNote(Note noteToSave)
@@ -199,10 +181,11 @@ public class DatabaseManager
 
                 if (noteToSave.NotesID > 0)
                 {
-                    string updateQuery = "UPDATE notes SET NoteTitle = @NoteTitle, NoteContent = @NoteContent WHERE NotesID = @NotesID";
+                    string updateQuery = "UPDATE notes SET NoteTitle = @NoteTitle, NoteContent = @NoteContent, NoteDate = @NoteDate WHERE NotesID = @NotesID";
                     MySqlCommand updateCommand = new MySqlCommand(updateQuery, connection);
                     updateCommand.Parameters.AddWithValue("@NoteTitle", noteToSave.NoteTitle);
                     updateCommand.Parameters.AddWithValue("@NoteContent", noteToSave.NoteContent);
+                    updateCommand.Parameters.AddWithValue("@NoteDate", noteToSave.NoteDate);
                     updateCommand.Parameters.AddWithValue("@NotesID", noteToSave.NotesID);
 
                     int rowsAffected = updateCommand.ExecuteNonQuery();
@@ -266,7 +249,6 @@ public class DatabaseManager
         }
         catch (Exception ex)
         {
-            // Log or handle the exception appropriately
             Console.WriteLine($"Exception: {ex.Message}");
             return false;
         }
@@ -274,14 +256,12 @@ public class DatabaseManager
 
     public void MoveNoteToTrash(int noteId)
     {
-        // Implementation to move the note with the specified ID to trash
         try
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
                 connection.Open();
 
-                // Prepare the SQL INSERT query to move note to trash table
                 string insertTrashQuery = "INSERT INTO trash (AccountID, NoteID, TrashedDate, TrashTitle, TrashContent) " +
                                           "SELECT AccountID, NotesID, NOW(), NoteTitle, NoteContent FROM notes WHERE NotesID = @NotesID";
                 MySqlCommand insertTrashCommand = new MySqlCommand(insertTrashQuery, connection);
@@ -326,8 +306,8 @@ public class DatabaseManager
             {
                 connection.Open();
 
-                string insertNoteQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) " +
-                                         "SELECT AccountID, @NoteTitle, @NoteContent FROM archive WHERE ArchiveID = @ArchiveID";
+                string insertNoteQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent, NoteDate) " +
+                                         "SELECT AccountID, ArchiveTitle, ArchiveContent, ArchivedDate FROM archive WHERE ArchiveID = @ArchiveID";
                 MySqlCommand insertNoteCommand = new MySqlCommand(insertNoteQuery, connection);
                 insertNoteCommand.Parameters.AddWithValue("@NoteTitle", note.NoteTitle);
                 insertNoteCommand.Parameters.AddWithValue("@NoteContent", note.NoteContent);
@@ -359,7 +339,7 @@ public class DatabaseManager
             {
                 connection.Open();
 
-                string query = "SELECT TrashID, TrashTitle, TrashContent FROM trash WHERE AccountID = @AccountID";
+                string query = "SELECT TrashID, TrashTitle, TrashContent, TrashedDate FROM trash WHERE AccountID = @AccountID";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@AccountID", accountId);
 
@@ -371,7 +351,8 @@ public class DatabaseManager
                         {
                             NotesID = reader.GetInt32("TrashID"),
                             NoteTitle = reader.GetString("TrashTitle"),
-                            NoteContent = reader.GetString("TrashContent")
+                            NoteContent = reader.GetString("TrashContent"),
+                            NoteDate = reader.GetDateTime("TrashedDate")
                         };
                         trashedNotes.Add(note);
                     }
@@ -394,9 +375,8 @@ public class DatabaseManager
             {
                 connection.Open();
 
-                // Prepare the SQL INSERT query to move note back to notes table
-                string insertNoteQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent) " +
-                                         "SELECT AccountID, TrashTitle, TrashContent FROM trash WHERE TrashID = @TrashID AND AccountID = @AccountID";
+                string insertNoteQuery = "INSERT INTO notes (AccountID, NoteTitle, NoteContent, NoteDate) " +
+                                         "SELECT AccountID, TrashTitle, TrashContent, TrashedDate FROM trash WHERE TrashID = @TrashID AND AccountID = @AccountID";
                 MySqlCommand insertNoteCommand = new MySqlCommand(insertNoteQuery, connection);
                 insertNoteCommand.Parameters.AddWithValue("@TrashID", noteId);
                 insertNoteCommand.Parameters.AddWithValue("@AccountID", accountId);
@@ -405,7 +385,6 @@ public class DatabaseManager
 
                 if (rowsInserted > 0)
                 {
-                    // Delete the note from the trash table
                     string deleteTrashQuery = "DELETE FROM trash WHERE TrashID = @TrashID AND AccountID = @AccountID";
                     MySqlCommand deleteTrashCommand = new MySqlCommand(deleteTrashQuery, connection);
                     deleteTrashCommand.Parameters.AddWithValue("@TrashID", noteId);
@@ -432,7 +411,6 @@ public class DatabaseManager
             {
                 connection.Open();
 
-                // Prepare the SQL DELETE query to remove note from trash table
                 string deleteNoteQuery = "DELETE FROM trash WHERE TrashID = @TrashID AND AccountID = @AccountID";
                 MySqlCommand deleteNoteCommand = new MySqlCommand(deleteNoteQuery, connection);
                 deleteNoteCommand.Parameters.AddWithValue("@TrashID", noteId);
@@ -448,7 +426,7 @@ public class DatabaseManager
             throw new Exception($"Error deleting note from trash: {ex.Message}");
         }
     }
-    
+
     public ObservableCollection<Note> GetArchivedNotes(int accountId)
     {
         ObservableCollection<Note> archivedNotes = new ObservableCollection<Note>();
@@ -459,7 +437,7 @@ public class DatabaseManager
             {
                 connection.Open();
 
-                string query = "SELECT ArchiveID, ArchiveTitle, ArchiveContent FROM archive WHERE AccountID = @AccountID";
+                string query = "SELECT ArchiveID, ArchiveTitle, ArchiveContent, ArchivedDate FROM archive WHERE AccountID = @AccountID";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@AccountID", accountId);
 
@@ -472,7 +450,8 @@ public class DatabaseManager
                             NotesID = reader.GetInt32("ArchiveID"),
                             NoteTitle = reader.GetString("ArchiveTitle"),
                             NoteContent = reader.GetString("ArchiveContent"),
-                            IsArchived = true // Set IsArchived to true for archived notes
+                            NoteDate = reader.GetDateTime("ArchivedDate"),
+                            IsArchived = true
                         };
                         archivedNotes.Add(note);
                     }
@@ -487,4 +466,3 @@ public class DatabaseManager
         return archivedNotes;
     }
 }
-
